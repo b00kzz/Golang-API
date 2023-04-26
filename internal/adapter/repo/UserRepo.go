@@ -71,3 +71,12 @@ func (u registerRepo) FindByUsername(username string) (port.User, error) {
 	}
 	return users, nil
 }
+
+func (c registerRepo) GetProfileById(id int) (*port.User, error) {
+	userID := port.User{}
+	err := c.db.First(&userID, id).Error
+	if err != nil {
+		return nil, err
+	}
+	return &userID, nil
+}

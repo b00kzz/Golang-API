@@ -7,6 +7,8 @@ type RegisterSvc interface {
 	UpdateUser(int, RegisterReq) error
 	DeleteUser(int) error
 	Login(users LoginReq) (string, error)
+	GetProfile(string) (*RegisterResp, error)
+	// GetUserByUsername(string) (*RegisterResp, error)
 }
 
 type RegisterReq struct {
@@ -38,5 +40,6 @@ type Response struct {
 	Code    int         `json:"code"`
 	Status  string      `json:"status"`
 	Message string      `json:"message"`
+	User    interface{} `json:"user,omitempty"`
 	Data    interface{} `json:"data,omitempty"`
 }

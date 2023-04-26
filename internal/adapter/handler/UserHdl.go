@@ -23,6 +23,7 @@ func NewRegisterHdl(svc domain.RegisterSvc) registerHdl {
 }
 
 func (h *registerHdl) GetUsers(c *gin.Context) {
+	// currentUser := c.MustGet("currentUser").(port.User)
 	users, _ := h.svc.GetAllUser()
 	webResponse := domain.Response{
 		Code:    200,
@@ -130,4 +131,17 @@ func (h *registerHdl) Login(ctx *gin.Context) {
 
 	// ctx.SetCookie("token", token, config.TokenMaxAge*60, "/", "localhost", false, true)
 	ctx.JSON(http.StatusOK, webResponse)
+}
+
+func (h registerHdl) GetProfile(c *gin.Context) {
+	currentUser := c.MustGet("currentUser").(string)
+	users, _ := h.svc.GetProfile(currentUser)
+	webResponse := domain.Response{
+		Code:    200,
+		Status:  "Ok",
+		Message: "Successfully fetch all user data!",
+		Data:    users,
+	}
+	c.JSON(http.StatusOK, webResponse)
+
 }

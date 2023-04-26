@@ -114,3 +114,24 @@ func (a registerSvc) Login(users domain.LoginReq) (string, error) {
 	return token, nil
 
 }
+
+// func Profile(c *gin.Context) {
+// 	userId := c.MustGet("userId").(float64)
+// 	var user orm.User
+// 	orm.Db.First(&user, userId)
+// 	c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "User Read Success", "user": user})
+// }
+
+func (s registerSvc) GetProfile(username string) (*domain.RegisterResp, error) {
+	cust, err := s.repo.FindByUsername(username)
+	if err != nil {
+		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get user form DB")
+	}
+	resp := domain.RegisterResp{
+		Username: cust.Username,
+		Password: cust.Password,
+		Fullname: cust.Fullname,
+		Avatar:   cust.Avatar,
+	}
+	return &resp, nil
+}

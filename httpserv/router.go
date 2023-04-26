@@ -10,7 +10,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-
 func bindBill(g gin.Engine) {
 	repo := repo.NewBillRepo(infrastructure.DB)
 	svc := service.NewBillSvc(repo)
@@ -74,6 +73,7 @@ func bindRegister(g gin.Engine) {
 		v1.POST("/login", hdl.Login)
 		usersRouter := g.Group("/users")
 		usersRouter.GET("", middleware.DeserializeUser(repo), hdl.GetUsers)
+		usersRouter.GET("/profile", middleware.DeserializeUser(repo), hdl.GetProfile)
 	}
 
 }
