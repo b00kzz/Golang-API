@@ -7,7 +7,6 @@ type RegisterRepo interface {
 	Update(int, User) error
 	Delete(int) error
 	FindByUsername(username string) (User, error)
-	// GetProfileById(id int) (*User, error)
 }
 
 type User struct {

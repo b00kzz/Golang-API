@@ -14,9 +14,9 @@ type UserDetail struct {
 	RoleId       uint   `gorm:"notnull"`
 	FirstName    string `gorm:"notnull"`
 	LastName     string `gorm:"notnull"`
-	Phone        string `gorm:"notnull;min=10;max=10"`
-	Email        string `gorm:"notnull;min=10;max=10"`
-	Avatar       string `gorm:"null;min=2"`
+	Phone        string `gorm:"notnull"`
+	Email        string `gorm:"notnull"`
+	Avatar       string `gorm:"null"`
 	RecordStatus string `gorm:"notnull"`
 	CreatedBy    string `gorm:"notnull"`
 	CreatedDate  string `gorm:"notnull"`

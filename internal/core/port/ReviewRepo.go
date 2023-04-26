@@ -13,8 +13,8 @@ type Review struct {
 	UserId      uint   `gorm:"notnull"`
 	RevRank     string `gorm:"notnull;type:decimal(5)"`
 	RevComment  string `gorm:"notnull;type:varchar(255)"`
-	CreatedBy   string `gorm:"notnull;min=2;max=100"`
-	CreatedDate string `gorm:"notnull;min=2;max=100"`
+	CreatedBy   string `gorm:"notnull"`
+	CreatedDate string `gorm:"notnull"`
 	UpdatedBy   string `gorm:"null"`
 	UpdatedDate string `gorm:"null"`
 }

@@ -10,11 +10,11 @@ type RoleRepo interface {
 
 type Role struct {
 	RoleId      uint   `gorm:"primaryKey;autoIncrement"`
-	RoleName    string `gorm:"notnull;minlength=2;maxlength=100"`
-	RoleDesc    string `gorm:"notnull;minlength=2;maxlength=100"`
-	Status      string `gorm:"notnull;minlength=2;maxlength=100"`
-	CreatedBy   string `gorm:"notnull;minlength=2;maxlength=100"`
-	CreatedDate string `gorm:"notnull;minlength=2;maxlength=100"`
+	RoleName    string `gorm:"notnull"`
+	RoleDesc    string `gorm:"notnull"`
+	Status      string `gorm:"notnull"`
+	CreatedBy   string `gorm:"notnull"`
+	CreatedDate string `gorm:"notnull"`
 	UpdatedBy   string `gorm:"null"`
 	UpdatedDate string `gorm:"null"`
 }

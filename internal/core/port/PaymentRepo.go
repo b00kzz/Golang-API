@@ -10,12 +10,12 @@ type PaymentRepo interface {
 
 type Payment struct {
 	PayId       uint   `gorm:"primaryKey;autoIncrement"`
-	UserId      uint   `gorm:"notnull;minlength=2;maxlength=100"`
-	BillId      uint   `gorm:"notnull;minlength=2;maxlength=100"`
-	TicketId    uint   `gorm:"notnull;minlength=2;maxlength=100"`
+	UserId      uint   `gorm:"notnull"`
+	BillId      uint   `gorm:"notnull"`
+	TicketId    uint   `gorm:"notnull"`
 	PayStatus   string `gorm:"notnull;default=กำลังดำเนินการ"`
-	CreatedBy   string `gorm:"notnull;minlength=2;maxlength=100"`
-	CreatedDate string `gorm:"notnull;minlength=2;maxlength=100"`
+	CreatedBy   string `gorm:"notnull"`
+	CreatedDate string `gorm:"notnull"`
 	UpdatedBy   string `gorm:"null"`
 	UpdatedDate string `gorm:"null"`
 }

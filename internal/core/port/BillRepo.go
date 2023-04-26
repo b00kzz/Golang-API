@@ -10,10 +10,10 @@ type BillRepo interface {
 
 type Bill struct {
 	BillId      uint   `gorm:"primaryKey;autoIncrement"`
-	BillImg     string `gorm:"notnull;minlength=2;maxlength=100"`
+	BillImg     string `gorm:"notnull"`
 	BillStatus  string `gorm:"notnull"`
-	CreatedBy   string `gorm:"notnull;minlength=2;maxlength=100"`
-	CreatedDate string `gorm:"notnull;minlength=2;maxlength=100"`
+	CreatedBy   string `gorm:"notnull"`
+	CreatedDate string `gorm:"notnull"`
 	UpdatedBy   string `gorm:"null"`
 	UpdatedDate string `gorm:"null"`
 }
