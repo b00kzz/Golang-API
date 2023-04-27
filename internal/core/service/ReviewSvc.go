@@ -41,12 +41,13 @@ func (s reviewSvc) GetAllReview() ([]domain.ReviewRespone, error) {
 }
 
 func (s reviewSvc) GetReview(id int) (*domain.ReviewRespone, error) {
-
+	var req domain.RegisterResp
 	cust, err := s.repo.GetById(id)
 	if err != nil {
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get Review form DB")
 	}
 	resp := domain.ReviewRespone{
+		UserId:      req.ID,
 		RevRank:     cust.RevRank,
 		RevComment:  cust.RevComment,
 		CreatedBy:   cust.CreatedBy,
