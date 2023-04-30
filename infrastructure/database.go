@@ -26,8 +26,8 @@ func InitDB() {
 
 	dial := mysql.Open(dsn)
 	db, err := gorm.Open(dial, &gorm.Config{
-		DryRun: false,
-		Logger: &SqlLogger{},
+		// DryRun: false,
+		// Logger: &SqlLogger{},
 	})
 
 	if err != nil {
@@ -36,7 +36,7 @@ func InitDB() {
 
 	DB = db
 
-	db.AutoMigrate(&port.Bill{})
+	db.AutoMigrate(&port.Bill{},)
 	// db.AutoMigrate(&port.Customer{})
 	db.AutoMigrate(&port.Payment{})
 	db.AutoMigrate(&port.Review{})

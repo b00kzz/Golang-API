@@ -8,6 +8,7 @@ import (
 	"ticket/goapi/internal/core/domain"
 	"ticket/goapi/internal/core/port"
 	"ticket/goapi/utils"
+	"time"
 )
 
 type registerSvc struct {
@@ -28,11 +29,15 @@ func (s registerSvc) GetAllUser() ([]domain.RegisterResp, error) {
 	resp := []domain.RegisterResp{}
 	for _, c := range custs {
 		resp = append(resp, domain.RegisterResp{
-			ID:       c.ID,
-			Username: c.Username,
-			Password: c.Password,
-			Fullname: c.Fullname,
-			Avatar:   c.Avatar,
+			ID:          c.ID,
+			Username:    c.Username,
+			Password:    c.Password,
+			Fullname:    c.Fullname,
+			Email:       c.Email,
+			CreatedBy:   c.CreatedBy,
+			CreatedDate: c.CreatedBy,
+			UpdatedBy:   c.UpdatedBy,
+			UpdatedDate: c.CreatedDate,
 		})
 
 	}
@@ -45,40 +50,55 @@ func (s registerSvc) GetUser(id int) (*domain.RegisterResp, error) {
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get user form DB")
 	}
 	resp := domain.RegisterResp{
-		Username: cust.Username,
-		Password: cust.Password,
-		Fullname: cust.Fullname,
-		Avatar:   cust.Avatar,
+		Username:    cust.Username,
+		Password:    cust.Password,
+		Fullname:    cust.Fullname,
+		Email:       cust.Email,
+		CreatedBy:   cust.CreatedBy,
+		CreatedDate: cust.CreatedBy,
+		UpdatedBy:   cust.UpdatedBy,
+		UpdatedDate: cust.CreatedDate,
 	}
 	return &resp, nil
 }
 
 func (r registerSvc) AddUser(req domain.RegisterReq) (*domain.RegisterResp, error) {
+	currentTime := time.Now()
+
 	cust := port.User{
-		Username: req.Username,
-		Password: req.Password,
-		Fullname: req.Fullname,
-		Avatar:   req.Avatar,
+		// UserdeId:	 1,
+		RoleID:      3,
+		Username:    req.Username,
+		Password:    req.Password,
+		Fullname:    req.Fullname,
+		Email:       req.Email,
+		CreatedBy:   "User",
+		CreatedDate: currentTime.Format(time.DateTime),
 	}
 	newCust, err := r.repo.Create(cust)
 	if err != nil {
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot save user	")
 	}
 	resp := domain.RegisterResp{
-		Username: newCust.Username,
-		Password: newCust.Password,
-		Fullname: newCust.Fullname,
-		Avatar:   newCust.Avatar,
+		Username:    newCust.Username,
+		Password:    newCust.Password,
+		Fullname:    newCust.Fullname,
+		Email:       newCust.Email,
+		CreatedBy:   newCust.CreatedBy,
+		CreatedDate: newCust.CreatedDate,
 	}
 
 	return &resp, nil
 }
 
 func (s registerSvc) UpdateUser(id int, req domain.RegisterReq) error {
+	currentTime := time.Now()
 	cust := port.User{
-		Password: req.Password,
-		Fullname: req.Fullname,
-		Avatar:   req.Avatar,
+		Password:    req.Password,
+		Fullname:    req.Fullname,
+		Email:       req.Email,
+		UpdatedBy:   "User",
+		UpdatedDate: currentTime.Format(time.DateTime),
 	}
 	err := s.repo.Update(id, cust)
 	if err != nil {
@@ -115,23 +135,17 @@ func (a registerSvc) Login(users domain.LoginReq) (string, error) {
 
 }
 
-// func Profile(c *gin.Context) {
-// 	userId := c.MustGet("userId").(float64)
-// 	var user orm.User
-// 	orm.Db.First(&user, userId)
-// 	c.JSON(http.StatusOK, gin.H{"status": "ok", "message": "User Read Success", "user": user})
-// }
-
 func (s registerSvc) GetProfile(username string) (*domain.RegisterResp, error) {
 	cust, err := s.repo.FindByUsername(username)
 	if err != nil {
-		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get user form DB")
+		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get Profile form DB")
 	}
 	resp := domain.RegisterResp{
+		ID:       cust.ID,
 		Username: cust.Username,
 		Password: cust.Password,
 		Fullname: cust.Fullname,
-		Avatar:   cust.Avatar,
+		Email:    cust.Email,
 	}
 	return &resp, nil
 }

@@ -8,22 +8,30 @@ type RegisterSvc interface {
 	DeleteUser(int) error
 	Login(users LoginReq) (string, error)
 	GetProfile(string) (*RegisterResp, error)
-	// GetUserByUsername(string) (*RegisterResp, error)
 }
 
 type RegisterReq struct {
-	Username string `validate:"required,min=2,max=100" json:"username"`
-	Password string `validate:"required,min=2,max=100" json:"password"`
-	Fullname string `json:"fullname" binding:"required"`
-	Avatar   string `json:"avatar" binding:"required"`
+	Username    string `validate:"required,min=2,max=100" json:"username"`
+	Password    string `validate:"required,min=2,max=100" json:"password"`
+	Fullname    string `json:"fullname" binding:"required"`
+	Email       string `json:"email" binding:"required"`
+	CreatedBy   string `json:"createdby"`
+	CreatedDate string `json:"createddate"`
+	UpdatedBy   string `json:"updatedby"`
+	UpdatedDate string `json:"updateddate"`
 }
 
 type RegisterResp struct {
-	ID       uint   `json:"id" binding:"required"`
-	Username string `json:"username" binding:"required"`
-	Password string `json:"password" binding:"required"`
-	Fullname string `json:"fullname" binding:"required"`
-	Avatar   string `json:"avatar" binding:"required"`
+	ID uint `json:"user_id" binding:"required"`
+	// UserdeId    uint   `json:"userde_id" binding:"required"`
+	Username    string `json:"username" binding:"required"`
+	Password    string `json:"password" binding:"required"`
+	Fullname    string `json:"fullname" binding:"required"`
+	Email       string `json:"email" binding:"required"`
+	CreatedBy   string `json:"createdby"`
+	CreatedDate string `json:"createddate"`
+	UpdatedBy   string `json:"updatedby"`
+	UpdatedDate string `json:"updateddate"`
 }
 
 type LoginReq struct {
@@ -32,8 +40,9 @@ type LoginReq struct {
 }
 
 type LoginResponse struct {
-	TokenType string `json:"token_type"`
-	Token     string `json:"token"`
+	TokenType string      `json:"token_type"`
+	Token     string      `json:"token"`
+	Data      interface{} `json:"data,omitempty"`
 }
 
 type Response struct {

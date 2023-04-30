@@ -41,13 +41,12 @@ func (s reviewSvc) GetAllReview() ([]domain.ReviewRespone, error) {
 }
 
 func (s reviewSvc) GetReview(id int) (*domain.ReviewRespone, error) {
-	var req domain.RegisterResp
 	cust, err := s.repo.GetById(id)
 	if err != nil {
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get Review form DB")
 	}
 	resp := domain.ReviewRespone{
-		UserId:      req.ID,
+		UserId:      cust.UserId,
 		RevRank:     cust.RevRank,
 		RevComment:  cust.RevComment,
 		CreatedBy:   cust.CreatedBy,
@@ -60,6 +59,7 @@ func (s reviewSvc) GetReview(id int) (*domain.ReviewRespone, error) {
 
 func (r reviewSvc) AddReview(req domain.ReviewRequest) (*domain.ReviewRespone, error) {
 	currentTime := time.Now()
+	var user domain.RegisterResp
 	cust := port.Review{
 		RevRank:     req.RevRank,
 		RevComment:  req.RevComment,
@@ -71,6 +71,7 @@ func (r reviewSvc) AddReview(req domain.ReviewRequest) (*domain.ReviewRespone, e
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot save Review	")
 	}
 	resp := domain.ReviewRespone{
+		UserId:      user.ID,
 		RevRank:     newCust.RevRank,
 		RevComment:  newCust.RevComment,
 		CreatedBy:   newCust.CreatedBy,

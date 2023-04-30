@@ -9,6 +9,8 @@ type UserDetailSvc interface {
 }
 
 type UserDetailRequest struct {
+	UserId       uint   `json:"userid"`
+	RoleId       uint   `json:"roleid"`
 	FirstName    string `json:"firstname"`
 	LastName     string `json:"lastname"`
 	Phone        string `json:"phone"`

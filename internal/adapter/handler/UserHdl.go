@@ -104,7 +104,7 @@ func (h *registerHdl) Login(ctx *gin.Context) {
 	loginRequest := domain.LoginReq{}
 	err := ctx.ShouldBindJSON(&loginRequest)
 	errs.ErrorPanic(err)
-
+	
 	token, err_token := h.svc.Login(loginRequest)
 	fmt.Println(err_token)
 	if err_token != nil {
@@ -128,7 +128,6 @@ func (h *registerHdl) Login(ctx *gin.Context) {
 		Message: "Successfully log in!",
 		Data:    resp,
 	}
-
 	// ctx.SetCookie("token", token, config.TokenMaxAge*60, "/", "localhost", false, true)
 	ctx.JSON(http.StatusOK, webResponse)
 }
@@ -141,6 +140,7 @@ func (h registerHdl) GetProfile(c *gin.Context) {
 		Status:  "Ok",
 		Message: "Successfully fetch all user data!",
 		Data:    users,
+		// User:    detail,
 	}
 	c.JSON(http.StatusOK, webResponse)
 

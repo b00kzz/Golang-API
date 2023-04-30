@@ -20,8 +20,9 @@ func NewRegisterRepo(db *gorm.DB) port.RegisterRepo {
 
 func (r registerRepo) Create(user port.User) (*port.User, error) {
 	hash, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
-	usernew := port.User{Username: user.Username, Password: string(hash), Fullname: user.Fullname, Avatar: user.Avatar}
+	usernew := port.User{Username: user.Username, Password: string(hash), Fullname: user.Fullname, Email: user.Email, CreatedBy: user.CreatedBy, CreatedDate: user.CreatedDate, RoleID: user.RoleID}
 	err := r.db.Create(&usernew).Error
+	r.db.Model(&usernew).Update("userde_id", usernew.ID)
 	if user.ID > 0 {
 		return nil, err
 	}
@@ -29,7 +30,7 @@ func (r registerRepo) Create(user port.User) (*port.User, error) {
 }
 
 func (c registerRepo) Update(id int, user port.User) error {
-	err := c.db.Model(&port.User{}).Where("id = ?", id).Updates(user).Error
+	err := c.db.Model(&port.User{}).Where("user_id = ?", id).Updates(user).Error
 	if err != nil {
 		return err
 	}
@@ -70,13 +71,4 @@ func (u registerRepo) FindByUsername(username string) (port.User, error) {
 		return users, errors.New("invalid username or Password")
 	}
 	return users, nil
-}
-
-func (c registerRepo) GetProfileById(id int) (*port.User, error) {
-	userID := port.User{}
-	err := c.db.First(&userID, id).Error
-	if err != nil {
-		return nil, err
-	}
-	return &userID, nil
 }
