@@ -35,7 +35,7 @@ func (s registerSvc) GetAllUser() ([]domain.RegisterResp, error) {
 			Fullname:    c.Fullname,
 			Email:       c.Email,
 			CreatedBy:   c.CreatedBy,
-			CreatedDate: c.CreatedBy,
+			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,
 			UpdatedDate: c.CreatedDate,
 		})
@@ -85,7 +85,7 @@ func (r registerSvc) AddUser(req domain.RegisterReq) (*domain.RegisterResp, erro
 		Fullname:    newCust.Fullname,
 		Email:       newCust.Email,
 		CreatedBy:   newCust.CreatedBy,
-		CreatedDate: newCust.CreatedDate,
+		CreatedDate: currentTime.Format(time.DateTime),
 	}
 
 	return &resp, nil
