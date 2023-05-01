@@ -26,8 +26,8 @@ func InitDB() {
 
 	dial := mysql.Open(dsn)
 	db, err := gorm.Open(dial, &gorm.Config{
-		// DryRun: false,
-		// Logger: &SqlLogger{},
+		DryRun: false,//เปิดปิดเพื่อทดลองการทำงาน
+		Logger: &SqlLogger{},//แสดงคำสั่งของ SQL
 	})
 
 	if err != nil {
@@ -35,7 +35,7 @@ func InitDB() {
 	}
 
 	DB = db
-
+	//การสร้างตารางในฐานข้อมูลด้วยโมเดล
 	db.AutoMigrate(&port.Bill{},)
 	// db.AutoMigrate(&port.Customer{})
 	db.AutoMigrate(&port.Payment{})

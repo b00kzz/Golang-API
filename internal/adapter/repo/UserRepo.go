@@ -30,7 +30,9 @@ func (r registerRepo) Create(user port.User) (*port.User, error) {
 }
 
 func (c registerRepo) Update(id int, user port.User) error {
-	err := c.db.Model(&port.User{}).Where("user_id = ?", id).Updates(user).Error
+	hash, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	usernew := port.User{Username: user.Username, Password: string(hash), Fullname: user.Fullname, Email: user.Email, CreatedBy: user.CreatedBy, CreatedDate: user.CreatedDate, RoleID: user.RoleID}
+	err := c.db.Model(&port.User{}).Where("user_id = ?", id).Updates(usernew).Error
 	if err != nil {
 		return err
 	}

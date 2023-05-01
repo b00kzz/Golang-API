@@ -37,7 +37,7 @@ func (s registerSvc) GetAllUser() ([]domain.RegisterResp, error) {
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,
-			UpdatedDate: c.CreatedDate,
+			UpdatedDate: c.UpdatedDate,
 		})
 
 	}
@@ -57,7 +57,7 @@ func (s registerSvc) GetUser(id int) (*domain.RegisterResp, error) {
 		CreatedBy:   cust.CreatedBy,
 		CreatedDate: cust.CreatedBy,
 		UpdatedBy:   cust.UpdatedBy,
-		UpdatedDate: cust.CreatedDate,
+		UpdatedDate: cust.UpdatedDate,
 	}
 	return &resp, nil
 }

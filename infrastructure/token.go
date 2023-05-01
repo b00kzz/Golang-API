@@ -14,7 +14,7 @@ type Config struct {
 
 func LoadConfig(path string) (config Config, err error) {
 	viper.AddConfigPath(path)
-	viper.SetConfigType("env")
+	viper.SetConfigType("env")//ดึงข้อมูลจากไฟล์ ประเภทนามสกุล Env
 	// viper.SetConfigName("app")
 
 	viper.AutomaticEnv()
