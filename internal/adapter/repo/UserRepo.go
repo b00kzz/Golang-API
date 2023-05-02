@@ -4,7 +4,6 @@ import (
 	"errors"
 	"ticket/goapi/internal/core/port"
 
-	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
@@ -18,21 +17,23 @@ func NewRegisterRepo(db *gorm.DB) port.RegisterRepo {
 	}
 }
 
-func (r registerRepo) Create(user port.User) (*port.User, error) {
-	hash, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
-	usernew := port.User{Username: user.Username, Password: string(hash), Fullname: user.Fullname, Email: user.Email, CreatedBy: user.CreatedBy, CreatedDate: user.CreatedDate, RoleID: user.RoleID}
-	err := r.db.Create(&usernew).Error
-	r.db.Model(&usernew).Update("userde_id", usernew.ID)
-	if user.ID > 0 {
+// มีการเปลี่ยนแปลง
+func (c registerRepo) Create(userExist port.User) (*port.User, error) {
+	_ = c.db.Where("username = ?", userExist.Username).First(&userExist).Error
+	if userExist.ID > 0 {
+		err := errors.New("username already exist")
 		return nil, err
+	} else {
+		err := c.db.Create(&userExist).Error
+		if err != nil {
+			return &userExist, err
+		}
 	}
-	return &usernew, nil
+	return &userExist, nil
 }
 
 func (c registerRepo) Update(id int, user port.User) error {
-	hash, _ := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
-	usernew := port.User{Username: user.Username, Password: string(hash), Fullname: user.Fullname, Email: user.Email, CreatedBy: user.CreatedBy, CreatedDate: user.CreatedDate, RoleID: user.RoleID}
-	err := c.db.Model(&port.User{}).Where("user_id = ?", id).Updates(usernew).Error
+	err := c.db.Model(&port.User{}).Where("user_id = ?", id).Updates(user).Error
 	if err != nil {
 		return err
 	}

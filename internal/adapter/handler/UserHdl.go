@@ -5,9 +5,7 @@ import (
 	"net/http"
 	"strconv"
 	"ticket/goapi/errs"
-	"ticket/goapi/infrastructure"
 	"ticket/goapi/internal/core/domain"
-	"ticket/goapi/internal/core/port"
 
 	"github.com/gin-gonic/gin"
 )
@@ -52,18 +50,12 @@ func (h registerHdl) GetUser(c *gin.Context) {
 func (h registerHdl) AddUser(c *gin.Context) {
 	req := domain.RegisterReq{}
 	c.ShouldBindJSON(&req) //+มา
-	var userExist port.User
-	infrastructure.DB.Where("username = ?", req.Username).First(&userExist)
-	if userExist.ID > 0 {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "user already exists"})
-	} else {
-		res, err := h.svc.AddUser(req)
-		if err != nil {
-			c.Error(err)
-			return
-		}
-		c.JSON(http.StatusOK, res)
+	res, err := h.svc.AddUser(req)
+	if err != nil {
+		c.Error(err)
+		return
 	}
+	c.JSON(http.StatusOK, res)
 }
 
 func (h registerHdl) UpdateUser(c *gin.Context) {
@@ -104,7 +96,7 @@ func (h *registerHdl) Login(ctx *gin.Context) {
 	loginRequest := domain.LoginReq{}
 	err := ctx.ShouldBindJSON(&loginRequest)
 	errs.ErrorPanic(err)
-	
+
 	token, err_token := h.svc.Login(loginRequest)
 	fmt.Println(err_token)
 	if err_token != nil {

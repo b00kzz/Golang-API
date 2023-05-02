@@ -22,8 +22,7 @@ type RegisterReq struct {
 }
 
 type RegisterResp struct {
-	ID uint `json:"user_id" binding:"required"`
-	// UserdeId    uint   `json:"userde_id" binding:"required"`
+	ID          uint   `json:"user_id" binding:"required"`
 	Username    string `json:"username" binding:"required"`
 	Password    string `json:"password" binding:"required"`
 	Fullname    string `json:"fullname" binding:"required"`

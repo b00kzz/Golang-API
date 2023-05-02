@@ -11,8 +11,6 @@ type RegisterRepo interface {
 
 type User struct {
 	ID          uint   `gorm:"column:user_id"`
-	RoleID      uint   `gorm:"column:role_id"`
-	UserdeId    uint   `gorm:"column:userde_id"`
 	Username    string `gorm:"column:username"`
 	Password    string `gorm:"column:password"`
 	Fullname    string `gorm:"column:fullname"`

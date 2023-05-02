@@ -64,12 +64,10 @@ func (s registerSvc) GetUser(id int) (*domain.RegisterResp, error) {
 
 func (r registerSvc) AddUser(req domain.RegisterReq) (*domain.RegisterResp, error) {
 	currentTime := time.Now()
-
+	hashpwd, _ := utils.HashPassword(req.Password)
 	cust := port.User{
-		// UserdeId:	 1,
-		RoleID:      3,
 		Username:    req.Username,
-		Password:    req.Password,
+		Password:    hashpwd,
 		Fullname:    req.Fullname,
 		Email:       req.Email,
 		CreatedBy:   "User",
@@ -93,8 +91,9 @@ func (r registerSvc) AddUser(req domain.RegisterReq) (*domain.RegisterResp, erro
 
 func (s registerSvc) UpdateUser(id int, req domain.RegisterReq) error {
 	currentTime := time.Now()
+	hashpwd, _ := utils.HashPassword(req.Password)
 	cust := port.User{
-		Password:    req.Password,
+		Password:    hashpwd,
 		Fullname:    req.Fullname,
 		Email:       req.Email,
 		UpdatedBy:   "User",
@@ -106,6 +105,7 @@ func (s registerSvc) UpdateUser(id int, req domain.RegisterReq) error {
 	}
 	return nil
 }
+
 func (s registerSvc) DeleteUser(id int) error {
 	err := s.repo.Delete(id)
 	if err != nil {

@@ -6,4 +6,4 @@ db:
   port: 3306
   username: root
   password: 
-  database: go-api
+  database: goticket
