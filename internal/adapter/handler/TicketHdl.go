@@ -85,3 +85,10 @@ func (h ticketHdl) DeleteTicket(c *gin.Context) {
 		"message": "Delete Ticket success!!",
 	})
 }
+
+func (h ticketHdl) Search(c *gin.Context) {
+	ticketname := c.Param("TicketName")
+	
+	res, _ := h.svc.Search(ticketname)
+	c.JSON(http.StatusOK, res)
+}

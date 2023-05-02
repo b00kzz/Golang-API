@@ -1,6 +1,7 @@
 package repo
 
 import (
+	"errors"
 	"ticket/goapi/internal/core/port"
 
 	"gorm.io/gorm"
@@ -56,4 +57,13 @@ func (c ticketRepo) Delete(id int) error {
 		return err
 	}
 	return nil
+}
+
+func (c ticketRepo) Search(ticketName string) ([]port.Ticket, error) {
+	ticket := []port.Ticket{}
+	result := c.db.Find(&ticket, "ticket_name LIKE ?", "%"+ticketName+"%")
+	if result.Error != nil {
+		return ticket, errors.New("ticket not found")
+	}
+	return ticket, nil
 }

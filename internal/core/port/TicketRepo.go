@@ -6,6 +6,7 @@ type TicketRepo interface {
 	Create(Ticket) (*Ticket, error)
 	Update(int, Ticket) error
 	Delete(int) error
+	Search(string) ([]Ticket, error)
 }
 
 type Ticket struct {

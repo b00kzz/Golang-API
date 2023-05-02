@@ -122,6 +122,7 @@ func bindTicket(g gin.Engine) {
 		v1.POST("/ticket", hdl.AddTicket)
 		v1.PUT("/ticket/:TicketId", hdl.UpdateTicket)
 		v1.DELETE("/ticket/:TicketId", hdl.DeleteTicket)
+		v1.GET("/search/:TicketName", hdl.Search)
 	}
 
 }

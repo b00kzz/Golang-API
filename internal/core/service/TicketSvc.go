@@ -110,3 +110,26 @@ func (s ticketSvc) DeleteTicket(id int) error {
 	}
 	return nil
 }
+
+func (s ticketSvc) Search(ticketName  string) (*[]domain.TicketRespone, error) {
+	custs, err := s.repo.Search(ticketName)
+	if err != nil {
+		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get ticket form DB")
+	}
+	resp := []domain.TicketRespone{}
+	for _, c := range custs {
+		resp = append(resp, domain.TicketRespone{
+			TicketId:    c.TicketId,
+			TicketName:  c.TicketName,
+			TicketType:  c.TicketType,
+			TicketPrice: c.TicketPrice,
+			TicketDesc:  c.TicketDesc,
+			CreatedBy:   c.CreatedBy,
+			CreatedDate: c.CreatedDate,
+			UpdatedBy:   c.UpdatedBy,
+			UpdatedDate: c.UpdatedDate,
+		})
+
+	}
+	return &resp, nil
+}

@@ -6,6 +6,7 @@ type TicketSvc interface {
 	AddTicket(TicketRequest) (*TicketRespone, error)
 	UpdateTicket(int, TicketRequest) error
 	DeleteTicket(int) error
+	Search(string) (*[]TicketRespone, error)
 }
 
 type TicketRequest struct {
