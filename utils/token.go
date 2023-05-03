@@ -17,7 +17,7 @@ func GenerateToken(ttl time.Duration, payload interface{}, secretJWTKey string) 
 	claims["exp"] = now.Add(ttl).Add(time.Minute * 1).Unix()
 	claims["iat"] = now.Unix()
 	claims["nbf"] = now.Unix()
-	
+
 	tokenString, err := token.SignedString([]byte(secretJWTKey))
 
 	if err != nil {

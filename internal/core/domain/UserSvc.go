@@ -11,8 +11,8 @@ type RegisterSvc interface {
 }
 
 type RegisterReq struct {
-	Username    string `validate:"required,min=6,max=100" json:"username"`
-	Password    string `validate:"required,min=8,max=100" json:"password"`
+	Username    string `validate:"required,min=2,max=100" json:"username"`
+	Password    string `validate:"required,min=2,max=100" json:"password"`
 	Fullname    string `json:"fullname" binding:"required"`
 	Email       string `json:"email" binding:"required"`
 	CreatedBy   string `json:"createdby"`
