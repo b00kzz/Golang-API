@@ -9,6 +9,9 @@ type PaymentSvc interface {
 }
 
 type PaymentRequest struct {
+	UserId      uint   `json:"userid"`
+	BillId      uint   `json:"billid"`
+	TicketId    uint   `json:"ticketid"`
 	PayStatus   string `json:"paymentstatus"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`

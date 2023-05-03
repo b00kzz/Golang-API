@@ -64,6 +64,9 @@ func (s paymentSvc) GetPayment(id int) (*domain.PaymentRespone, error) {
 func (r paymentSvc) AddPayment(req domain.PaymentRequest) (*domain.PaymentRespone, error) {
 	currentTime := time.Now()
 	cust := port.Payment{
+		UserId:      req.UserId,
+		BillId:      req.BillId,
+		TicketId:    req.TicketId,
 		PayStatus:   req.PayStatus,
 		CreatedBy:   req.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
@@ -73,6 +76,9 @@ func (r paymentSvc) AddPayment(req domain.PaymentRequest) (*domain.PaymentRespon
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot save Payment	")
 	}
 	resp := domain.PaymentRespone{
+		UserId:      newCust.UserId,
+		BillId:      newCust.BillId,
+		TicketId:    newCust.TicketId,
 		PayStatus:   newCust.PayStatus,
 		CreatedBy:   newCust.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),

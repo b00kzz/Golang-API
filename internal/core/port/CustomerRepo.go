@@ -15,6 +15,10 @@ type Customer struct {
 	City        string `gorm:"column:city"`
 	ZipCode     string `gorm:"column:zipcode"`
 	Status      int    `gorm:"column:status"`
+	CreatedBy   string `gorm:"notnull;type:varchar(10)"`
+	CreatedDate string `gorm:"notnull;type:varchar(20)"`
+	UpdatedBy   string `gorm:"null;type:varchar(10)"`
+	UpdatedDate string `gorm:"null;type:varchar(20)"`
 }
 
 func (c Customer) TableName() string {

@@ -9,14 +9,14 @@ type RoleRepo interface {
 }
 
 type Role struct {
-	RoleId      uint   `gorm:"primaryKey;autoIncrement"`
-	RoleName    string `gorm:"notnull"`
-	RoleDesc    string `gorm:"notnull"`
-	Status      string `gorm:"notnull"`
-	CreatedBy   string `gorm:"notnull"`
-	CreatedDate string `gorm:"notnull"`
-	UpdatedBy   string `gorm:"null"`
-	UpdatedDate string `gorm:"null"`
+	RoleId      uint   `gorm:"primaryKey;autoIncrement;type:int(10)"`
+	RoleName    string `gorm:"notnull;type:varchar(20)"`
+	RoleDesc    string `gorm:"notnull;type:varchar(300)"`
+	Status      string `gorm:"notnull;type:varchar(10)"`
+	CreatedBy   string `gorm:"notnull;type:varchar(10)"`
+	CreatedDate string `gorm:"notnull;type:varchar(20)"`
+	UpdatedBy   string `gorm:"null;type:varchar(10)"`
+	UpdatedDate string `gorm:"null;type:varchar(20)"`
 }
 
 func (c Role) TableName() string {

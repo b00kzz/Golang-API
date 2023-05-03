@@ -13,6 +13,7 @@ type TicketRequest struct {
 	TicketName  string `json:"ticketname"`
 	TicketType  string `json:"tickettype"`
 	TicketPrice string `json:"ticketprice"`
+	TicketImage string `json:"ticketimage"`
 	TicketDesc  string `json:"ticketdesc"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
@@ -25,6 +26,7 @@ type TicketRespone struct {
 	TicketName  string `json:"ticketname"`
 	TicketType  string `json:"tickettype"`
 	TicketPrice string `json:"ticketprice"`
+	TicketImage string `json:"ticketimage"`
 	TicketDesc  string `json:"ticketdesc"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`

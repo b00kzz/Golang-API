@@ -10,15 +10,16 @@ type TicketRepo interface {
 }
 
 type Ticket struct {
-	TicketId    uint   `gorm:"primaryKey;autoIncrement"`
-	TicketName  string `gorm:"notnull"`
-	TicketType  string `gorm:"notnull"`
-	TicketPrice string `gorm:"notnull"`
-	TicketDesc  string `gorm:"notnull"`
-	CreatedBy   string `gorm:"notnull"`
-	CreatedDate string `gorm:"notnull"`
-	UpdatedBy   string `gorm:"null"`
-	UpdatedDate string `gorm:"null"`
+	TicketId    uint   `gorm:"primaryKey;autoIncrement;type:int(10)"`
+	TicketName  string `gorm:"notnull;type:varchar(150)"`
+	TicketType  string `gorm:"notnull;type:varchar(50)"`
+	TicketPrice string `gorm:"notnull;type:varchar(50)"`
+	TicketImage string `gorm:"notnull;type:varchar(100)"`
+	TicketDesc  string `gorm:"notnull;type:varchar(500)"`
+	CreatedBy   string `gorm:"notnull;type:varchar(10)"`
+	CreatedDate string `gorm:"notnull;type:varchar(20)"`
+	UpdatedBy   string `gorm:"null;type:varchar(10)"`
+	UpdatedDate string `gorm:"null;type:varchar(20)"`
 }
 
 func (c Ticket) TableName() string {

@@ -72,8 +72,8 @@ func (s userDetailSvc) GetUserDetail(id int) (*domain.UserDetailRespone, error) 
 func (r userDetailSvc) AddUserDetail(req domain.UserDetailRequest) (*domain.UserDetailRespone, error) {
 	currentTime := time.Now()
 	cust := port.UserDetail{
-		// UserId:       req.UserId,
-		// RoleId:       req.RoleId,
+		UserId:       req.UserId,
+		RoleId:       req.RoleId,
 		FirstName:    req.FirstName,
 		LastName:     req.LastName,
 		Phone:        req.Phone,
@@ -88,7 +88,8 @@ func (r userDetailSvc) AddUserDetail(req domain.UserDetailRequest) (*domain.User
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot save UserDetail	")
 	}
 	resp := domain.UserDetailRespone{
-		// UserId:       newCust.UserId,
+		UserId:       newCust.UserId,
+		RoleId:       newCust.RoleId,
 		FirstName:    newCust.FirstName,
 		LastName:     newCust.LastName,
 		Phone:        newCust.Phone,

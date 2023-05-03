@@ -52,6 +52,7 @@ func (s ticketSvc) GetTicket(id int) (*domain.TicketRespone, error) {
 		TicketName:  cust.TicketName,
 		TicketType:  cust.TicketType,
 		TicketPrice: cust.TicketPrice,
+		TicketImage: cust.TicketImage,
 		TicketDesc:  cust.TicketDesc,
 		CreatedBy:   cust.CreatedBy,
 		CreatedDate: cust.CreatedDate,
@@ -67,6 +68,7 @@ func (r ticketSvc) AddTicket(req domain.TicketRequest) (*domain.TicketRespone, e
 		TicketName:  req.TicketName,
 		TicketType:  req.TicketType,
 		TicketPrice: req.TicketPrice,
+		TicketImage: req.TicketImage,
 		TicketDesc:  req.TicketDesc,
 		CreatedBy:   req.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
@@ -79,6 +81,7 @@ func (r ticketSvc) AddTicket(req domain.TicketRequest) (*domain.TicketRespone, e
 		TicketName:  newCust.TicketName,
 		TicketType:  newCust.TicketType,
 		TicketPrice: newCust.TicketPrice,
+		TicketImage: newCust.TicketImage,
 		TicketDesc:  newCust.TicketDesc,
 		CreatedBy:   newCust.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
@@ -93,6 +96,7 @@ func (s ticketSvc) UpdateTicket(id int, req domain.TicketRequest) error {
 		TicketName:  req.TicketName,
 		TicketType:  req.TicketType,
 		TicketPrice: req.TicketPrice,
+		TicketImage: req.TicketImage,
 		TicketDesc:  req.TicketDesc,
 		UpdatedBy:   req.UpdatedBy,
 		UpdatedDate: currentTime.Format(time.DateTime),
@@ -111,7 +115,7 @@ func (s ticketSvc) DeleteTicket(id int) error {
 	return nil
 }
 
-func (s ticketSvc) Search(ticketName  string) (*[]domain.TicketRespone, error) {
+func (s ticketSvc) Search(ticketName string) (*[]domain.TicketRespone, error) {
 	custs, err := s.repo.Search(ticketName)
 	if err != nil {
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get ticket form DB")
@@ -122,6 +126,7 @@ func (s ticketSvc) Search(ticketName  string) (*[]domain.TicketRespone, error) {
 			TicketId:    c.TicketId,
 			TicketName:  c.TicketName,
 			TicketType:  c.TicketType,
+			TicketImage: c.TicketImage,
 			TicketPrice: c.TicketPrice,
 			TicketDesc:  c.TicketDesc,
 			CreatedBy:   c.CreatedBy,

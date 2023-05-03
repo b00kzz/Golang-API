@@ -9,19 +9,19 @@ type UserDetailRepo interface {
 }
 
 type UserDetail struct {
-	UserdeId     uint   `gorm:"primaryKey;autoIncrement"`
-	UserId       uint   `gorm:"notnull"`
-	RoleId       uint   `gorm:"notnull"`
-	FirstName    string `gorm:"notnull"`
-	LastName     string `gorm:"notnull"`
-	Phone        string `gorm:"notnull"`
-	Email        string `gorm:"notnull"`
-	Avatar       string `gorm:"null"`
-	RecordStatus string `gorm:"notnull"`
-	CreatedBy    string `gorm:"notnull"`
-	CreatedDate  string `gorm:"notnull"`
-	UpdatedBy    string `gorm:"null"`
-	UpdatedDate  string `gorm:"null"`
+	UserdeId     uint   `gorm:"primaryKey;autoIncrement;type:int(10)"`
+	UserId       uint   `gorm:"notnull;type:int(10)"`
+	RoleId       uint   `gorm:"notnull;type:int(10)"`
+	FirstName    string `gorm:"notnull;type:varchar(100)"`
+	LastName     string `gorm:"notnull;type:varchar(100)"`
+	Phone        string `gorm:"notnull;type:varchar(10)"`
+	Email        string `gorm:"notnull;type:varchar(100)"`
+	Avatar       string `gorm:"null;type:varchar(100)"`
+	RecordStatus string `gorm:"notnull;type:varchar(10)"`
+	CreatedBy    string `gorm:"notnull;type:varchar(10)"`
+	CreatedDate  string `gorm:"notnull;type:varchar(20)"`
+	UpdatedBy    string `gorm:"null;type:varchar(10)"`
+	UpdatedDate  string `gorm:"null;type:varchar(20)"`
 }
 
 func (c UserDetail) TableName() string {
