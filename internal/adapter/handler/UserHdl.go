@@ -27,7 +27,7 @@ func (h *registerHdl) GetUsers(c *gin.Context) {
 		Code:    200,
 		Status:  "Ok",
 		Message: "Successfully fetch all user data!",
-		Data:    users,
+		User:    users,
 	}
 
 	c.JSON(http.StatusOK, webResponse)
@@ -108,7 +108,7 @@ func (h *registerHdl) Login(ctx *gin.Context) {
 		ctx.JSON(http.StatusBadRequest, webResponse)
 		return
 	}
-
+	users, _ := h.svc.GetProfile(loginRequest.Username)
 	resp := domain.LoginResponse{
 		TokenType: "Bearer",
 		Token:     token,
@@ -118,7 +118,8 @@ func (h *registerHdl) Login(ctx *gin.Context) {
 		Code:    200,
 		Status:  "Ok",
 		Message: "Successfully log in!",
-		Data:    resp,
+		Bearer:  resp.Token,
+		User:    users,
 	}
 	// ctx.SetCookie("token", token, config.TokenMaxAge*60, "/", "localhost", false, true)
 	ctx.JSON(http.StatusOK, webResponse)
@@ -131,8 +132,7 @@ func (h registerHdl) GetProfile(c *gin.Context) {
 		Code:    200,
 		Status:  "Ok",
 		Message: "Successfully fetch all user data!",
-		Data:    users,
-		// User:    detail,
+		User:    users,
 	}
 	c.JSON(http.StatusOK, webResponse)
 

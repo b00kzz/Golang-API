@@ -13,7 +13,7 @@ type User struct {
 	ID          uint   `gorm:"column:user_id;type:int(10);primary_key;auto_increment"`
 	Username    string `gorm:"column:username;type:varchar(50);notnull"`
 	Password    string `gorm:"column:password;type:varchar(100);notnull"` //ถ้าเก็บขนาดน้อยไปจะไม่ได้
-	Fullname    string `gorm:"column:fullname;type:varchar(200);notnull"`
+	Nickname    string `gorm:"column:nickname;type:varchar(200);notnull"`
 	Email       string `gorm:"column:Email;type:varchar(100);notnull"`
 	CreatedBy   string `gorm:"notnull;type:varchar(10)"`
 	CreatedDate string `gorm:"notnull;type:varchar(20)"`

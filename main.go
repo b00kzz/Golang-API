@@ -15,4 +15,5 @@ func main() {
 	infrastructure.InitTimeZone()
 	infrastructure.InitDB()
 	httpserv.Run()
+
 }

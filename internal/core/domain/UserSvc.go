@@ -13,7 +13,7 @@ type RegisterSvc interface {
 type RegisterReq struct {
 	Username    string `validate:"required,min=2,max=100" json:"username"`
 	Password    string `validate:"required,min=2,max=100" json:"password"`
-	Fullname    string `json:"fullname" binding:"required"`
+	Nickname    string `json:"nickname" binding:"required"`
 	Email       string `json:"email" binding:"required"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
@@ -25,7 +25,7 @@ type RegisterResp struct {
 	ID          uint   `json:"user_id" binding:"required"`
 	Username    string `json:"username" binding:"required"`
 	Password    string `json:"password" binding:"required"`
-	Fullname    string `json:"fullname" binding:"required"`
+	Nickname    string `json:"nickname" binding:"required"`
 	Email       string `json:"email" binding:"required"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
@@ -41,7 +41,7 @@ type LoginReq struct {
 type LoginResponse struct {
 	TokenType string      `json:"token_type"`
 	Token     string      `json:"token"`
-	Data      interface{} `json:"data,omitempty"`
+	Bearer    interface{} `json:"bearer,omitempty"`
 }
 
 type Response struct {
@@ -49,5 +49,5 @@ type Response struct {
 	Status  string      `json:"status"`
 	Message string      `json:"message"`
 	User    interface{} `json:"user,omitempty"`
-	Data    interface{} `json:"data,omitempty"`
+	Bearer  interface{} `json:"bearer,omitempty"`
 }

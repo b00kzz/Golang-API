@@ -13,16 +13,15 @@ func Run() {
 	m := middleware.New()
 	a.UseMiddleware(m.Logger)
 	a.UseMiddleware(m.ErrorHandler)
-
 	bindBill(a.GinEngine())
 	bindCustomer(a.GinEngine())
 	bindPayment(a.GinEngine())
-	bindRegister(a.GinEngine())
+	bindUser(a.GinEngine())
 	bindReview(a.GinEngine())
 	bindRole(a.GinEngine())
 	bindTicket(a.GinEngine())
 	bindUserDetail(a.GinEngine())
-	
+
 	port := fmt.Sprintf(":%v", viper.GetInt("app.port"))
 	a.Start(port)
 }

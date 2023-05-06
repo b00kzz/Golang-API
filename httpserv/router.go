@@ -58,11 +58,11 @@ func bindPayment(g gin.Engine) {
 
 }
 
-func bindRegister(g gin.Engine) {
+func bindUser(g gin.Engine) {
 	repo := repo.NewRegisterRepo(infrastructure.DB)
 	svc := service.NewRegisterSvc(repo)
 	hdl := handler.NewRegisterHdl(svc)
-	// var usersController *registerHdl
+
 	v1 := g.Group("/v1")
 	{
 		v1.GET("/users", hdl.GetUsers)
@@ -71,11 +71,9 @@ func bindRegister(g gin.Engine) {
 		v1.PUT("/user/:ID", hdl.UpdateUser)
 		v1.DELETE("/user/:ID", hdl.DeleteUser)
 		v1.POST("/login", hdl.Login)
-		usersRouter := g.Group("/users")
-		usersRouter.GET("", middleware.DeserializeUser(repo), hdl.GetUsers)
-		usersRouter.GET("/profile", middleware.DeserializeUser(repo), hdl.GetProfile)
+		v1.GET("/user", middleware.DeserializeUser(repo), hdl.GetUsers)
+		v1.GET("/profile", middleware.DeserializeUser(repo), hdl.GetProfile)
 	}
-
 }
 
 func bindReview(g gin.Engine) {
