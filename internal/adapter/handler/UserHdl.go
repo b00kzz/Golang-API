@@ -118,7 +118,7 @@ func (h *registerHdl) Login(ctx *gin.Context) {
 		Code:    200,
 		Status:  "Ok",
 		Message: "Successfully log in!",
-		Bearer:  resp.Token,
+		AccessToken: resp.Token,
 		User:    users,
 	}
 	// ctx.SetCookie("token", token, config.TokenMaxAge*60, "/", "localhost", false, true)

@@ -30,6 +30,7 @@ func (s registerSvc) GetAllUser() ([]domain.RegisterResp, error) {
 	for _, c := range custs {
 		resp = append(resp, domain.RegisterResp{
 			ID:          c.ID,
+			RoleId:      c.RoleId,
 			Username:    c.Username,
 			Password:    c.Password,
 			Nickname:    c.Nickname,
@@ -50,6 +51,7 @@ func (s registerSvc) GetUser(id int) (*domain.RegisterResp, error) {
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get user form DB")
 	}
 	resp := domain.RegisterResp{
+		RoleId:      cust.RoleId,
 		Username:    cust.Username,
 		Password:    cust.Password,
 		Nickname:    cust.Nickname,
@@ -66,6 +68,7 @@ func (r registerSvc) AddUser(req domain.RegisterReq) (*domain.RegisterResp, erro
 	currentTime := time.Now()
 	hashpwd, _ := utils.HashPassword(req.Password)
 	cust := port.User{
+		RoleId:      3,
 		Username:    req.Username,
 		Password:    hashpwd,
 		Nickname:    req.Nickname,
@@ -73,11 +76,13 @@ func (r registerSvc) AddUser(req domain.RegisterReq) (*domain.RegisterResp, erro
 		CreatedBy:   "User",
 		CreatedDate: currentTime.Format(time.DateTime),
 	}
+	
 	newCust, err := r.repo.Create(cust)
 	if err != nil {
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot save user	")
 	}
 	resp := domain.RegisterResp{
+		RoleId:      newCust.RoleId,
 		Username:    newCust.Username,
 		Password:    newCust.Password,
 		Nickname:    newCust.Nickname,
@@ -142,6 +147,7 @@ func (s registerSvc) GetProfile(username string) (*domain.RegisterResp, error) {
 	}
 	resp := domain.RegisterResp{
 		ID:       cust.ID,
+		RoleId:   cust.RoleId,
 		Username: cust.Username,
 		Password: cust.Password,
 		Nickname: cust.Nickname,

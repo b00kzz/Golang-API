@@ -9,7 +9,6 @@ import (
 	"ticket/goapi/logs"
 	"time"
 
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,11 +22,6 @@ func NewApp() AppPort {
 
 func (a *App) GinEngine() gin.Engine {
 	return *a.ginEngine
-}
-
-func (a *App) GinCors() {
-	ginCors := gin.Default()
-	ginCors.Use(cors.New(cors.DefaultConfig()))
 }
 
 func (a *App) UseMiddleware(handlers ...AppHandlerFunc) {

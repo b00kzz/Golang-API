@@ -10,5 +10,4 @@ type AppPort interface {
 	Start(string)
 	UseMiddleware(handlers ...AppHandlerFunc)
 	GinEngine() gin.Engine
-	GinCors()
 }

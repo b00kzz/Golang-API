@@ -13,6 +13,7 @@ func Run() {
 	m := middleware.New()
 	a.UseMiddleware(m.Logger)
 	a.UseMiddleware(m.ErrorHandler)
+	a.UseMiddleware(m.CORS)
 	bindBill(a.GinEngine())
 	bindCustomer(a.GinEngine())
 	bindPayment(a.GinEngine())

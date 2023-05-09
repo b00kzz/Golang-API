@@ -11,6 +11,7 @@ type RegisterSvc interface {
 }
 
 type RegisterReq struct {
+	RoleId      int    `json:"roleid" binding:"required"`
 	Username    string `validate:"required,min=2,max=100" json:"username"`
 	Password    string `validate:"required,min=2,max=100" json:"password"`
 	Nickname    string `json:"nickname" binding:"required"`
@@ -22,7 +23,8 @@ type RegisterReq struct {
 }
 
 type RegisterResp struct {
-	ID          uint   `json:"user_id" binding:"required"`
+	ID          uint   `json:"userid" binding:"required"`
+	RoleId      int    `json:"roleid" binding:"required"`
 	Username    string `json:"username" binding:"required"`
 	Password    string `json:"password" binding:"required"`
 	Nickname    string `json:"nickname" binding:"required"`
@@ -45,9 +47,9 @@ type LoginResponse struct {
 }
 
 type Response struct {
-	Code    int         `json:"code"`
-	Status  string      `json:"status"`
-	Message string      `json:"message"`
-	User    interface{} `json:"user,omitempty"`
-	Bearer  interface{} `json:"bearer,omitempty"`
+	Code        int         `json:"code"`
+	Status      string      `json:"status"`
+	Message     string      `json:"message"`
+	User        interface{} `json:"user,omitempty"`
+	AccessToken string      `json:"accessToken,omitempty"`
 }
