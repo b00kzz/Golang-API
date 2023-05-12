@@ -20,6 +20,7 @@ func NewRegisterRepo(db *gorm.DB) port.RegisterRepo {
 // มีการเปลี่ยนแปลง
 func (c registerRepo) Create(userExist port.User) (*port.User, error) {
 	_ = c.db.Where("username = ?", userExist.Username).First(&userExist).Error
+
 	if userExist.ID > 0 {
 		err := errors.New("username already exist")
 		return nil, err

@@ -42,11 +42,15 @@ func (m *mdws) Logger(c *gin.Context) {
 }
 
 func (m *mdws) CORS(c *gin.Context) {
+	c.Writer.Header().Set("Content-Type", "application/json")
 	c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+	c.Writer.Header().Set("Access-Control-Max-Age", "86400")
 	c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
 	c.Writer.Header().Set("Access-Control-Allow-Headers", "Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, accept, origin, Cache-Control, X-Requested-With")
-	c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS, GET, PUT, DELETE")
+	c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
 	if c.Request.Method == "OPTIONS" {
-		fmt.Println("OPTIONS")
+		c.AbortWithStatus(200)
+	} else {
+		c.Next()
 	}
 }

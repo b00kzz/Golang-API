@@ -12,6 +12,7 @@ type RegisterRepo interface {
 type User struct {
 	ID          uint   `gorm:"column:user_id;type:int(10);primary_key;auto_increment"`
 	RoleId      int    `gorm:"column:role_id;type:int(10);notnull"`
+	UserdeId    int    `gorm:"column:userde_id;type:int(10);notnull"`
 	Username    string `gorm:"column:username;type:varchar(50);notnull"`
 	Password    string `gorm:"column:password;type:varchar(100);notnull"` //ถ้าเก็บขนาดน้อยไปจะไม่ได้
 	Nickname    string `gorm:"column:nickname;type:varchar(200);notnull"`
@@ -20,6 +21,7 @@ type User struct {
 	CreatedDate string `gorm:"notnull;type:varchar(20)"`
 	UpdatedBy   string `gorm:"null;type:varchar(10)"`
 	UpdatedDate string `gorm:"null;type:varchar(20)"`
+	Avatar      string `gorm:"null;type:longtext"`
 }
 
 func (u User) TableName() string {

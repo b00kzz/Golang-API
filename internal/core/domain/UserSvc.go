@@ -16,6 +16,7 @@ type RegisterReq struct {
 	Password    string `validate:"required,min=2,max=100" json:"password"`
 	Nickname    string `json:"nickname" binding:"required"`
 	Email       string `json:"email" binding:"required"`
+	Avatar      string `json:"avatar"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`
@@ -29,6 +30,7 @@ type RegisterResp struct {
 	Password    string `json:"password" binding:"required"`
 	Nickname    string `json:"nickname" binding:"required"`
 	Email       string `json:"email" binding:"required"`
+	Avatar      string `json:"avatar"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`

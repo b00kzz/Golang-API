@@ -56,6 +56,7 @@ func (s registerSvc) GetUser(id int) (*domain.RegisterResp, error) {
 		Password:    cust.Password,
 		Nickname:    cust.Nickname,
 		Email:       cust.Email,
+		Avatar:      cust.Avatar,
 		CreatedBy:   cust.CreatedBy,
 		CreatedDate: cust.CreatedBy,
 		UpdatedBy:   cust.UpdatedBy,
@@ -76,7 +77,7 @@ func (r registerSvc) AddUser(req domain.RegisterReq) (*domain.RegisterResp, erro
 		CreatedBy:   "User",
 		CreatedDate: currentTime.Format(time.DateTime),
 	}
-	
+
 	newCust, err := r.repo.Create(cust)
 	if err != nil {
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot save user	")
@@ -152,6 +153,7 @@ func (s registerSvc) GetProfile(username string) (*domain.RegisterResp, error) {
 		Password: cust.Password,
 		Nickname: cust.Nickname,
 		Email:    cust.Email,
+		Avatar:   cust.Avatar,
 	}
 	return &resp, nil
 }
