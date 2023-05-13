@@ -115,11 +115,11 @@ func (h *registerHdl) Login(ctx *gin.Context) {
 	}
 
 	webResponse := domain.Response{
-		Code:    200,
-		Status:  "Ok",
-		Message: "Successfully log in!",
+		Code:        200,
+		Status:      "Ok",
+		Message:     "Successfully log in!",
 		AccessToken: resp.Token,
-		User:    users,
+		User:        users,
 	}
 	// ctx.SetCookie("token", token, config.TokenMaxAge*60, "/", "localhost", false, true)
 	ctx.JSON(http.StatusOK, webResponse)
