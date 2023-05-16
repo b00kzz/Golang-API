@@ -17,6 +17,7 @@ type User struct {
 	Password    string `gorm:"column:password;type:varchar(100);notnull"` //ถ้าเก็บขนาดน้อยไปจะไม่ได้
 	Nickname    string `gorm:"column:nickname;type:varchar(200);notnull"`
 	Email       string `gorm:"column:Email;type:varchar(100);notnull"`
+	Status      bool   `gorm:"column:status;notnull;default:true;type:boolean"`
 	CreatedBy   string `gorm:"notnull;type:varchar(10)"`
 	CreatedDate string `gorm:"notnull;type:varchar(20)"`
 	UpdatedBy   string `gorm:"null;type:varchar(10)"`

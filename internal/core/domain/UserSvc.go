@@ -17,6 +17,7 @@ type RegisterReq struct {
 	Nickname    string `json:"nickname" binding:"required"`
 	Email       string `json:"email" binding:"required"`
 	Avatar      string `json:"avatar"`
+	Status      bool   `json:"status"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`
@@ -31,6 +32,7 @@ type RegisterResp struct {
 	Nickname    string `json:"nickname" binding:"required"`
 	Email       string `json:"email" binding:"required"`
 	Avatar      string `json:"avatar"`
+	Status      bool   `json:"status"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`

@@ -30,6 +30,7 @@ func (s ticketSvc) GetAllTicket() ([]domain.TicketRespone, error) {
 			TicketName:  c.TicketName,
 			TicketType:  c.TicketType,
 			TicketPrice: c.TicketPrice,
+			TicketImage: c.TicketImage,
 			TicketDesc:  c.TicketDesc,
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,

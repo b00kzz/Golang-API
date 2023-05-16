@@ -35,6 +35,7 @@ func (s registerSvc) GetAllUser() ([]domain.RegisterResp, error) {
 			Password:    c.Password,
 			Nickname:    c.Nickname,
 			Email:       c.Email,
+			Status:      c.Status,
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,
@@ -58,6 +59,7 @@ func (s registerSvc) GetUser(id int) (*domain.RegisterResp, error) {
 		Nickname:    cust.Nickname,
 		Email:       cust.Email,
 		Avatar:      cust.Avatar,
+		Status:      cust.Status,
 		CreatedBy:   cust.CreatedBy,
 		CreatedDate: cust.CreatedBy,
 		UpdatedBy:   cust.UpdatedBy,
@@ -75,6 +77,7 @@ func (r registerSvc) AddUser(req domain.RegisterReq) (*domain.RegisterResp, erro
 		Password:    hashpwd,
 		Nickname:    req.Nickname,
 		Email:       req.Email,
+		Status:      true,
 		CreatedBy:   "User",
 		CreatedDate: currentTime.Format(time.DateTime),
 	}
@@ -100,9 +103,11 @@ func (s registerSvc) UpdateUser(id int, req domain.RegisterReq) error {
 	currentTime := time.Now()
 	hashpwd, _ := utils.HashPassword(req.Password)
 	cust := port.User{
+		RoleId:      req.RoleId,
 		Password:    hashpwd,
 		Nickname:    req.Nickname,
 		Email:       req.Email,
+		Status:      req.Status,
 		UpdatedBy:   "User",
 		UpdatedDate: currentTime.Format(time.DateTime),
 	}
@@ -155,6 +160,7 @@ func (s registerSvc) GetProfile(username string) (*domain.RegisterResp, error) {
 		Nickname: cust.Nickname,
 		Email:    cust.Email,
 		Avatar:   cust.Avatar,
+		Status:   cust.Status,
 	}
 	return &resp, nil
 }
