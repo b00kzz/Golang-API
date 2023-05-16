@@ -63,7 +63,7 @@ func (r roleSvc) AddRole(req domain.RoleRequest) (*domain.RoleRespone, error) {
 	cust := port.Role{
 		RoleName:    req.RoleName,
 		RoleDesc:    req.RoleDesc,
-		Status:      req.Status,
+		Status:      true,
 		CreatedBy:   req.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
 	}

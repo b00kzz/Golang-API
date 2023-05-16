@@ -12,7 +12,7 @@ type Role struct {
 	RoleId      uint   `gorm:"primaryKey;autoIncrement;type:int(10)"`
 	RoleName    string `gorm:"notnull;type:varchar(20)"`
 	RoleDesc    string `gorm:"notnull;type:varchar(300)"`
-	Status      string `gorm:"notnull;type:varchar(10)"`
+	Status      bool   `gorm:"notnull; default:true"`
 	CreatedBy   string `gorm:"notnull;type:varchar(10)"`
 	CreatedDate string `gorm:"notnull;type:varchar(20)"`
 	UpdatedBy   string `gorm:"null;type:varchar(10)"`

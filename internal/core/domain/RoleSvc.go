@@ -11,7 +11,7 @@ type RoleSvc interface {
 type RoleRequest struct {
 	RoleName    string `json:"rolename" binding:"required"`
 	RoleDesc    string `json:"roledesc" binding:"required"`
-	Status      string `json:"status" binding:"required"`
+	Status      bool   `json:"status" binding:"required"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`
@@ -22,7 +22,7 @@ type RoleRespone struct {
 	RoleId      uint   `json:"roleid" binding:"required"`
 	RoleName    string `json:"rolename" binding:"required"`
 	RoleDesc    string `json:"roledesc" binding:"required"`
-	Status      string `json:"status" binding:"required"`
+	Status      bool   `json:"status" binding:"required"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`
