@@ -22,6 +22,7 @@ func Run() {
 	bindRole(a.GinEngine())
 	bindTicket(a.GinEngine())
 	bindUserDetail(a.GinEngine())
+	bindImage(a.GinEngine())
 
 	port := fmt.Sprintf(":%v", viper.GetInt("app.port"))
 	a.Start(port)

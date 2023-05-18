@@ -140,3 +140,11 @@ func bindUserDetail(g gin.Engine) {
 	}
 
 }
+
+func bindImage(g gin.Engine) {
+	v1 := g.Group("/v1")
+	{
+		v1.POST("/image", handler.FileUpload())
+		v1.POST("/remote", handler.RemoteUpload())
+	}
+}
