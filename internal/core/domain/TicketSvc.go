@@ -32,4 +32,5 @@ type TicketRespone struct {
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`
 	UpdatedDate string `json:"updateddate"`
+	TicketQr	string `json:"ticketqr"`
 }

@@ -36,6 +36,7 @@ func (s ticketSvc) GetAllTicket() ([]domain.TicketRespone, error) {
 			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,
 			UpdatedDate: c.UpdatedDate,
+			TicketQr:    ("https://promptpay.io/0942710120/" + c.TicketPrice + ".png"),
 		})
 
 	}
@@ -59,6 +60,7 @@ func (s ticketSvc) GetTicket(id int) (*domain.TicketRespone, error) {
 		CreatedDate: cust.CreatedDate,
 		UpdatedBy:   cust.UpdatedBy,
 		UpdatedDate: cust.UpdatedDate,
+		TicketQr:    ("https://promptpay.io/0942710120/" + cust.TicketPrice + ".png"),
 	}
 	return &resp, nil
 }
@@ -86,6 +88,7 @@ func (r ticketSvc) AddTicket(req domain.TicketRequest) (*domain.TicketRespone, e
 		TicketDesc:  newCust.TicketDesc,
 		CreatedBy:   newCust.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
+		TicketQr:    ("https://promptpay.io/0942710120/" + newCust.TicketPrice + ".png"),
 	}
 
 	return &resp, nil

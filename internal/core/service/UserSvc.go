@@ -164,3 +164,8 @@ func (s registerSvc) GetProfile(username string) (*domain.RegisterResp, error) {
 	}
 	return &resp, nil
 }
+
+func (s registerSvc) UploadAvatar() {
+	// single file
+
+}
