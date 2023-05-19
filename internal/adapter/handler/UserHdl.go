@@ -137,3 +137,39 @@ func (h registerHdl) GetProfile(c *gin.Context) {
 	c.JSON(http.StatusOK, webResponse)
 
 }
+
+func (h *registerHdl) UpdateRole(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("ID"))
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+	}
+
+	req := domain.Role{}
+	err = c.BindJSON(&req)
+	err = h.svc.UpdateRole(id, req)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Update User success!!",
+	})
+
+}
+func (h *registerHdl) UpdateStatus(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("ID"))
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+	}
+	req := domain.Status{}
+	err = c.BindJSON(&req)
+	err = h.svc.UpdateStatus(id, req)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Update User success!!",
+	})
+
+}

@@ -72,13 +72,13 @@ func (r registerSvc) AddUser(req domain.RegisterReq) (*domain.RegisterResp, erro
 	currentTime := time.Now()
 	hashpwd, _ := utils.HashPassword(req.Password)
 	cust := port.User{
-		RoleId:      3,
+		RoleId:      "3",
 		Username:    req.Username,
 		Password:    hashpwd,
 		Nickname:    req.Nickname,
 		Email:       req.Email,
 		Status:      true,
-		CreatedBy:   "User",
+		CreatedBy:   "System",
 		CreatedDate: currentTime.Format(time.DateTime),
 	}
 
@@ -97,25 +97,6 @@ func (r registerSvc) AddUser(req domain.RegisterReq) (*domain.RegisterResp, erro
 	}
 
 	return &resp, nil
-}
-
-func (s registerSvc) UpdateUser(id int, req domain.RegisterReq) error {
-	currentTime := time.Now()
-	hashpwd, _ := utils.HashPassword(req.Password)
-	cust := port.User{
-		RoleId:      req.RoleId,
-		Password:    hashpwd,
-		Nickname:    req.Nickname,
-		Email:       req.Email,
-		Status:      req.Status,
-		UpdatedBy:   "User",
-		UpdatedDate: currentTime.Format(time.DateTime),
-	}
-	err := s.repo.Update(id, cust)
-	if err != nil {
-		return errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot update user: ")
-	}
-	return nil
 }
 
 func (s registerSvc) DeleteUser(id int) error {
@@ -165,7 +146,43 @@ func (s registerSvc) GetProfile(username string) (*domain.RegisterResp, error) {
 	return &resp, nil
 }
 
-func (s registerSvc) UploadAvatar() {
-	// single file
+func (s registerSvc) UpdateRole(id int, req domain.Role) error {
+	cust := port.User{
+		RoleId: req.RoleId,
+	}
+	err := s.repo.UpdateRole(id, cust.RoleId)
+	if err != nil {
+		return errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot update Role: ")
+	}
+	return nil
+}
 
+func (s registerSvc) UpdateStatus(id int, req domain.Status) error {
+	cust := port.User{
+		Status: req.Status,
+	}
+	err := s.repo.UpdateStatus(id, cust.Status)
+	if err != nil {
+		return errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot update Status: ")
+	}
+	return nil
+}
+
+func (s registerSvc) UpdateUser(id int, req domain.RegisterReq) error {
+	currentTime := time.Now()
+	hashpwd, _ := utils.HashPassword(req.Password)
+	cust := port.User{
+		RoleId:      req.RoleId,
+		Password:    hashpwd,
+		Nickname:    req.Nickname,
+		Email:       req.Email,
+		Status:      req.Status,
+		UpdatedBy:   "System",
+		UpdatedDate: currentTime.Format(time.DateTime),
+	}
+	err := s.repo.Update(id, cust)
+	if err != nil {
+		return errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot update user: ")
+	}
+	return nil
 }

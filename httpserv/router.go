@@ -71,6 +71,8 @@ func bindUser(g gin.Engine) {
 		v1.PUT("/user/:ID", hdl.UpdateUser)
 		v1.DELETE("/user/:ID", hdl.DeleteUser)
 		v1.POST("/login", hdl.Login)
+		v1.PUT("user/role/:ID", hdl.UpdateRole)
+		v1.PUT("user/status/:ID", hdl.UpdateStatus)
 		v1.GET("/user", middleware.DeserializeUser(repo), hdl.GetUsers)
 		v1.GET("/profile", middleware.DeserializeUser(repo), hdl.GetProfile)
 	}

@@ -33,14 +33,6 @@ func (c registerRepo) Create(userExist port.User) (*port.User, error) {
 	return &userExist, nil
 }
 
-func (c registerRepo) Update(id int, user port.User) error {
-	err := c.db.Model(&port.User{}).Where("user_id = ?", id).Updates(user).Error
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
 func (c registerRepo) Delete(id int) error {
 	err := c.db.Delete(&port.User{}, id).Error
 	if err != nil {
@@ -75,4 +67,27 @@ func (u registerRepo) FindByUsername(username string) (port.User, error) {
 		return users, errors.New("invalid username or Password")
 	}
 	return users, nil
+}
+
+func (c registerRepo) UpdateRole(id int, role string) error {
+	err := c.db.Model(&port.User{}).Where("user_id = ?", id).Update("role_id", role).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (c registerRepo) UpdateStatus(id int, status bool) error {
+	err := c.db.Model(&port.User{}).Where("user_id = ?", id).Update("status", status).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (c registerRepo) Update(id int, user port.User) error {
+	err := c.db.Model(&port.User{}).Where("user_id = ?", id).Updates(user).Error
+	if err != nil {
+		return err
+	}
+	return nil
 }

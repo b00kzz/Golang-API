@@ -8,10 +8,12 @@ type RegisterSvc interface {
 	DeleteUser(int) error
 	Login(users LoginReq) (string, error)
 	GetProfile(string) (*RegisterResp, error)
+	UpdateStatus(int, Status) error
+	UpdateRole(int, Role) error
 }
 
 type RegisterReq struct {
-	RoleId      int    `json:"roleid" binding:"required"`
+	RoleId      string `json:"roleid"`
 	Username    string `validate:"required,min=2,max=100" json:"username"`
 	Password    string `validate:"required,min=2,max=100" json:"password"`
 	Nickname    string `json:"nickname" binding:"required"`
@@ -26,9 +28,10 @@ type RegisterReq struct {
 
 type RegisterResp struct {
 	ID          uint   `json:"userid" binding:"required"`
-	RoleId      int    `json:"roleid" binding:"required"`
+	RoleId      string `json:"roleid"`
 	Username    string `json:"username" binding:"required"`
 	Password    string `json:"password" binding:"required"`
+	OldPasswd   string `json:"oldpassword" binding:"required"`
 	Nickname    string `json:"nickname" binding:"required"`
 	Email       string `json:"email" binding:"required"`
 	Avatar      string `json:"avatar"`
@@ -56,4 +59,11 @@ type Response struct {
 	Message     string      `json:"message"`
 	User        interface{} `json:"user,omitempty"`
 	AccessToken string      `json:"accessToken,omitempty"`
+}
+
+type Role struct {
+	RoleId string `json:"roleid"`
+}
+type Status struct {
+	Status bool `json:"status"`
 }
