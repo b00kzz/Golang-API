@@ -72,7 +72,7 @@ func (r registerSvc) AddUser(req domain.RegisterReq) (*domain.RegisterResp, erro
 	currentTime := time.Now()
 	hashpwd, _ := utils.HashPassword(req.Password)
 	cust := port.User{
-		RoleId:      "3",
+		RoleId:      "User",
 		Username:    req.Username,
 		Password:    hashpwd,
 		Nickname:    req.Nickname,

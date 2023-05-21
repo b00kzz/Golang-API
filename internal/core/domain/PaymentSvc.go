@@ -10,9 +10,12 @@ type PaymentSvc interface {
 
 type PaymentRequest struct {
 	UserId      uint   `json:"userid"`
-	BillId      uint   `json:"billid"`
 	TicketId    uint   `json:"ticketid"`
+	PaySlip     string `json:"payslip"`
 	PayStatus   string `json:"paymentstatus"`
+	TicketName  string `json:"ticketname"`
+	TicketPrice string `json:"ticketprice"`
+	TicketDesc  string `json:"ticketdesc"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`
@@ -22,9 +25,12 @@ type PaymentRequest struct {
 type PaymentRespone struct {
 	PayId       uint   `json:"payid"`
 	UserId      uint   `json:"userid"`
-	BillId      uint   `json:"billid"`
+	PaySlip     string `json:"payslip"`
 	TicketId    uint   `json:"ticketid"`
 	PayStatus   string `json:"paymentstatus"`
+	TicketName  string `json:"ticketname"`
+	TicketPrice string `json:"ticketprice"`
+	TicketDesc  string `json:"ticketdesc"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`

@@ -28,9 +28,12 @@ func (s paymentSvc) GetAllPayment() ([]domain.PaymentRespone, error) {
 		resp = append(resp, domain.PaymentRespone{
 			PayId:       c.PayId,
 			UserId:      c.UserId,
-			BillId:      c.BillId,
 			TicketId:    c.TicketId,
+			PaySlip:     c.PaySlip,
 			PayStatus:   c.PayStatus,
+			TicketName:  c.TicketName,
+			TicketPrice: c.TicketPrice,
+			TicketDesc:  c.TicketDesc,
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,
@@ -50,9 +53,12 @@ func (s paymentSvc) GetPayment(id int) (*domain.PaymentRespone, error) {
 	resp := domain.PaymentRespone{
 		PayId:       cust.PayId,
 		UserId:      cust.UserId,
-		BillId:      cust.BillId,
 		TicketId:    cust.TicketId,
+		PaySlip:     cust.PaySlip,
 		PayStatus:   cust.PayStatus,
+		TicketName:  cust.TicketName,
+		TicketPrice: cust.TicketPrice,
+		TicketDesc:  cust.TicketDesc,
 		CreatedBy:   cust.CreatedBy,
 		CreatedDate: cust.CreatedDate,
 		UpdatedBy:   cust.UpdatedBy,
@@ -65,9 +71,12 @@ func (r paymentSvc) AddPayment(req domain.PaymentRequest) (*domain.PaymentRespon
 	currentTime := time.Now()
 	cust := port.Payment{
 		UserId:      req.UserId,
-		BillId:      req.BillId,
 		TicketId:    req.TicketId,
-		PayStatus:   req.PayStatus,
+		PaySlip:     req.PaySlip,
+		PayStatus:   "กำลังดำเนินการ",
+		TicketName:  req.TicketName,
+		TicketPrice: req.TicketPrice,
+		TicketDesc:  req.TicketDesc,
 		CreatedBy:   req.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
 	}
@@ -77,9 +86,12 @@ func (r paymentSvc) AddPayment(req domain.PaymentRequest) (*domain.PaymentRespon
 	}
 	resp := domain.PaymentRespone{
 		UserId:      newCust.UserId,
-		BillId:      newCust.BillId,
 		TicketId:    newCust.TicketId,
+		PaySlip:     newCust.PaySlip,
 		PayStatus:   newCust.PayStatus,
+		TicketName:  newCust.TicketName,
+		TicketPrice: newCust.TicketPrice,
+		TicketDesc:  newCust.TicketDesc,
 		CreatedBy:   newCust.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
 	}
@@ -91,7 +103,7 @@ func (s paymentSvc) UpdatePayment(id int, req domain.PaymentRequest) error {
 	currentTime := time.Now()
 	cust := port.Payment{
 		PayStatus:   req.PayStatus,
-		UpdatedBy:   req.UpdatedBy,
+		UpdatedBy:   "Admin",
 		UpdatedDate: currentTime.Format(time.DateTime),
 	}
 	err := s.repo.Update(id, cust)
