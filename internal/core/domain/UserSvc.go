@@ -67,3 +67,8 @@ type Role struct {
 type Status struct {
 	Status bool `json:"status"`
 }
+
+type Password struct {
+	Password  string `json:"password"`
+	OldPasswd string `json:"oldpassword"`
+}

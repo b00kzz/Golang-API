@@ -67,3 +67,11 @@ func (c ticketRepo) Search(ticketName string) ([]port.Ticket, error) {
 	}
 	return ticket, nil
 }
+
+func (c ticketRepo) UpdateStatusTicket(id int, status bool) error {
+	err := c.db.Model(&port.Ticket{}).Where("ticket_id = ?", id).Update("status", status).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

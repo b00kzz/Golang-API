@@ -32,6 +32,7 @@ func (s ticketSvc) GetAllTicket() ([]domain.TicketRespone, error) {
 			TicketPrice: c.TicketPrice,
 			TicketImage: c.TicketImage,
 			TicketDesc:  c.TicketDesc,
+			Status:      c.Status,
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,
@@ -56,6 +57,7 @@ func (s ticketSvc) GetTicket(id int) (*domain.TicketRespone, error) {
 		TicketPrice: cust.TicketPrice,
 		TicketImage: cust.TicketImage,
 		TicketDesc:  cust.TicketDesc,
+		Status:      cust.Status,
 		CreatedBy:   cust.CreatedBy,
 		CreatedDate: cust.CreatedDate,
 		UpdatedBy:   cust.UpdatedBy,
@@ -73,6 +75,7 @@ func (r ticketSvc) AddTicket(req domain.TicketRequest) (*domain.TicketRespone, e
 		TicketPrice: req.TicketPrice,
 		TicketImage: req.TicketImage,
 		TicketDesc:  req.TicketDesc,
+		Status:      false,
 		CreatedBy:   req.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
 	}
@@ -86,6 +89,7 @@ func (r ticketSvc) AddTicket(req domain.TicketRequest) (*domain.TicketRespone, e
 		TicketPrice: newCust.TicketPrice,
 		TicketImage: newCust.TicketImage,
 		TicketDesc:  newCust.TicketDesc,
+		Status:      newCust.Status,
 		CreatedBy:   newCust.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
 		TicketQr:    ("https://promptpay.io/0942710120/" + newCust.TicketPrice + ".png"),
@@ -133,6 +137,7 @@ func (s ticketSvc) Search(ticketName string) (*[]domain.TicketRespone, error) {
 			TicketImage: c.TicketImage,
 			TicketPrice: c.TicketPrice,
 			TicketDesc:  c.TicketDesc,
+			Status:      c.Status,
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,
@@ -141,4 +146,15 @@ func (s ticketSvc) Search(ticketName string) (*[]domain.TicketRespone, error) {
 
 	}
 	return &resp, nil
+}
+
+func (s ticketSvc) UpdateStatusTicket(id int, req domain.StatusTicket) error {
+	cust := port.Ticket{
+		Status: req.Status,
+	}
+	err := s.repo.UpdateStatusTicket(id, cust.Status)
+	if err != nil {
+		return errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot update Status: ")
+	}
+	return nil
 }

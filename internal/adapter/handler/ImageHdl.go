@@ -22,7 +22,6 @@ func FileUpload() gin.HandlerFunc {
 				})
 			return
 		}
-
 		uploadUrl, err := service.NewMediaUpload().FileUpload(domain.File{File: formfile})
 		if err != nil {
 			c.JSON(

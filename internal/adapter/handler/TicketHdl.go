@@ -92,3 +92,21 @@ func (h ticketHdl) Search(c *gin.Context) {
 	res, _ := h.svc.Search(ticketname)
 	c.JSON(http.StatusOK, res)
 }
+
+func (h *ticketHdl) UpdateStatusTicket(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("TicketId"))
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+	}
+	req := domain.StatusTicket{}
+	err = c.BindJSON(&req)
+	err = h.svc.UpdateStatusTicket(id, req)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Update Ticket success!!",
+	})
+
+}

@@ -173,3 +173,14 @@ func (h *registerHdl) UpdateStatus(c *gin.Context) {
 	})
 
 }
+
+// func (h *registerHdl) UpdatePassword(c *gin.Context) {
+// 	id, err := strconv.Atoi(c.Param("ID"))
+// 	if err != nil {
+// 			c.AbortWithError(http.StatusBadRequest, err)
+// 	}
+// 	resp := domain.Password{
+// 			Password: c.PostForm("password"),
+
+
+// }
