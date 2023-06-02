@@ -55,7 +55,7 @@ func (s registerSvc) GetUser(id int) (*domain.RegisterResp, error) {
 		ID:          cust.ID,
 		RoleId:      cust.RoleId,
 		Username:    cust.Username,
-		Password:    cust.Password,
+		// Password:    cust.Password,
 		Nickname:    cust.Nickname,
 		Email:       cust.Email,
 		Avatar:      cust.Avatar,
@@ -172,11 +172,10 @@ func (s registerSvc) UpdateUser(id int, req domain.RegisterReq) error {
 	currentTime := time.Now()
 	hashpwd, _ := utils.HashPassword(req.Password)
 	cust := port.User{
-		RoleId:      req.RoleId,
 		Password:    hashpwd,
 		Nickname:    req.Nickname,
 		Email:       req.Email,
-		Status:      req.Status,
+		Avatar:      req.Avatar,
 		UpdatedBy:   "System",
 		UpdatedDate: currentTime.Format(time.DateTime),
 	}

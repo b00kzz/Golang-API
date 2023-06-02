@@ -11,11 +11,13 @@ type TicketSvc interface {
 }
 
 type TicketRequest struct {
+	UserId      uint   `json:"userid"`
 	TicketName  string `json:"ticketname"`
 	TicketType  string `json:"tickettype"`
 	TicketPrice string `json:"ticketprice"`
 	TicketImage string `json:"ticketimage"`
 	TicketDesc  string `json:"ticketdesc"`
+	TicketRepo  string `json:"ticketrepo"`
 	Status      bool   `json:"status"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
@@ -25,11 +27,13 @@ type TicketRequest struct {
 
 type TicketRespone struct {
 	TicketId    uint   `json:"ticketid"`
+	UserId      uint   `json:"userid"`
 	TicketName  string `json:"ticketname"`
 	TicketType  string `json:"tickettype"`
 	TicketPrice string `json:"ticketprice"`
 	TicketImage string `json:"ticketimage"`
 	TicketDesc  string `json:"ticketdesc"`
+	TicketRepo  string `json:"ticketrepo"`
 	Status      bool   `json:"status"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`

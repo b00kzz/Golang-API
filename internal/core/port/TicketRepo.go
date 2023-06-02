@@ -12,11 +12,13 @@ type TicketRepo interface {
 
 type Ticket struct {
 	TicketId    uint   `gorm:"primaryKey;autoIncrement;type:int(10)"`
+	UserId      uint   `gorm:"notnull;type:int(10)"`
 	TicketName  string `gorm:"notnull;type:varchar(150)"`
 	TicketType  string `gorm:"notnull;type:varchar(50)"`
 	TicketPrice string `gorm:"notnull;type:varchar(50)"`
 	TicketImage string
 	TicketDesc  string `gorm:"notnull;type:varchar(500)"`
+	TicketRepo  string `gorm:"notnull"`
 	Status      bool   `gorm:"column:status;notnull;default:true"`
 	CreatedBy   string `gorm:"notnull;type:varchar(10)"`
 	CreatedDate string `gorm:"notnull;type:varchar(20)"`

@@ -19,7 +19,8 @@ func NewTicketRepo(db *gorm.DB) port.TicketRepo {
 
 func (c ticketRepo) GetAll() ([]port.Ticket, error) {
 	tickets := []port.Ticket{}
-	err := c.db.Find(&tickets).Error
+	// err := c.db.Find(&tickets).Error
+	err := c.db.Order("ticket_id desc").Find(&tickets).Error
 	if err != nil {
 		return nil, err
 	}
