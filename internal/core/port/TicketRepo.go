@@ -2,6 +2,7 @@ package port
 
 type TicketRepo interface {
 	GetAll() ([]Ticket, error)
+	GetAllByUserId(int) ([]Ticket, error)
 	GetById(id int) (*Ticket, error)
 	Create(Ticket) (*Ticket, error)
 	Update(int, Ticket) error

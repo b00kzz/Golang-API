@@ -18,7 +18,7 @@ func NewReviewRepo(db *gorm.DB) port.ReviewRepo {
 
 func (c reviewRepo) GetAll() ([]port.Review, error) {
 	reviews := []port.Review{}
-	err := c.db.Find(&reviews).Error
+	err := c.db.Order("rev_id desc").Find(&reviews).Error
 	if err != nil {
 		return nil, err
 	}
@@ -44,6 +44,13 @@ func (c reviewRepo) Create(review port.Review) (*port.Review, error) {
 
 func (c reviewRepo) Update(id int, review port.Review) error {
 	err := c.db.Model(&port.Review{}).Where("rev_id = ?", id).Updates(review).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+func (c reviewRepo) UpdateStatusReview(id int, status bool) error {
+	err := c.db.Model(&port.Review{}).Where("rev_id = ?", id).Update("status", status).Error
 	if err != nil {
 		return err
 	}

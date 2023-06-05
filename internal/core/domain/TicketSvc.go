@@ -2,6 +2,7 @@ package domain
 
 type TicketSvc interface {
 	GetAllTicket() ([]TicketRespone, error)
+	GetAllTicketID(int) ([]TicketRespone, error)
 	GetTicket(int) (*TicketRespone, error)
 	AddTicket(TicketRequest) (*TicketRespone, error)
 	UpdateTicket(int, TicketRequest) error

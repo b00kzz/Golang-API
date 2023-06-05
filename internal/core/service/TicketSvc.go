@@ -43,6 +43,32 @@ func (s ticketSvc) GetAllTicket() ([]domain.TicketRespone, error) {
 	}
 	return resp, nil
 }
+func (s ticketSvc) GetAllTicketID(id int) ([]domain.TicketRespone, error) {
+	custs, err := s.repo.GetAllByUserId(id)
+	if err != nil {
+		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get ticket form DB")
+	}
+	resp := []domain.TicketRespone{}
+	for _, c := range custs {
+		resp = append(resp, domain.TicketRespone{
+			UserId:      c.UserId,
+			TicketId:    c.TicketId,
+			TicketName:  c.TicketName,
+			TicketType:  c.TicketType,
+			TicketPrice: c.TicketPrice,
+			TicketImage: c.TicketImage,
+			TicketDesc:  c.TicketDesc,
+			Status:      c.Status,
+			CreatedBy:   c.CreatedBy,
+			CreatedDate: c.CreatedDate,
+			UpdatedBy:   c.UpdatedBy,
+			UpdatedDate: c.UpdatedDate,
+			TicketQr:    ("https://promptpay.io/0942710120/" + c.TicketPrice + ".png"),
+		})
+
+	}
+	return resp, nil
+}
 
 func (s ticketSvc) GetTicket(id int) (*domain.TicketRespone, error) {
 

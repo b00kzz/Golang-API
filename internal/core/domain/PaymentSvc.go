@@ -2,6 +2,7 @@ package domain
 
 type PaymentSvc interface {
 	GetAllPayment() ([]PaymentRespone, error)
+	GetAllPaymentId(int) ([]PaymentRespone, error)
 	GetPayment(int) (*PaymentRespone, error)
 	AddPayment(PaymentRequest) (*PaymentRespone, error)
 	UpdatePayment(int, PaymentRequest) error
@@ -16,6 +17,7 @@ type PaymentRequest struct {
 	TicketName  string `json:"ticketname"`
 	TicketPrice string `json:"ticketprice"`
 	TicketDesc  string `json:"ticketdesc"`
+	TicketRepo  string `json:"ticketrepo"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`
@@ -31,6 +33,7 @@ type PaymentRespone struct {
 	TicketName  string `json:"ticketname"`
 	TicketPrice string `json:"ticketprice"`
 	TicketDesc  string `json:"ticketdesc"`
+	TicketRepo  string `json:"ticketrepo"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`

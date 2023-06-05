@@ -57,3 +57,12 @@ func (c paymentRepo) Delete(id int) error {
 	}
 	return nil
 }
+
+func (c paymentRepo) GetAllId(id int) ([]port.Payment, error) {
+	payments := []port.Payment{}
+	err := c.db.Where("user_id = ?", id).Find(&payments).Error
+	if err != nil {
+		return nil, err
+	}
+	return payments, nil
+}

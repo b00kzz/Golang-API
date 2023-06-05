@@ -69,6 +69,23 @@ func (h reviewHdl) UpdateReview(c *gin.Context) {
 		"message": "Update Review success!!",
 	})
 }
+func (h reviewHdl) UpdateReviewStatus(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("ReviewId"))
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+	}
+
+	req := domain.StatusRev{}
+	err = c.BindJSON(&req)
+	err = h.svc.UpdateStatusRev(id, req)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Update Review success!!",
+	})
+}
 
 func (h reviewHdl) DeleteReview(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("ReviewId"))

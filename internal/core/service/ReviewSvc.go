@@ -27,9 +27,12 @@ func (s reviewSvc) GetAllReview() ([]domain.ReviewRespone, error) {
 	for _, c := range custs {
 		resp = append(resp, domain.ReviewRespone{
 			RevId:       c.RevId,
+			TicketId:    c.TicketId,
 			UserId:      c.UserId,
 			RevRank:     c.RevRank,
 			RevComment:  c.RevComment,
+			RevImage:    c.RevImage,
+			Status:      c.Status,
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,
@@ -46,6 +49,7 @@ func (s reviewSvc) GetReview(id int) (*domain.ReviewRespone, error) {
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get Review form DB")
 	}
 	resp := domain.ReviewRespone{
+		TicketId:    cust.TicketId,
 		UserId:      cust.UserId,
 		RevRank:     cust.RevRank,
 		RevComment:  cust.RevComment,
@@ -59,10 +63,13 @@ func (s reviewSvc) GetReview(id int) (*domain.ReviewRespone, error) {
 
 func (r reviewSvc) AddReview(req domain.ReviewRequest) (*domain.ReviewRespone, error) {
 	currentTime := time.Now()
-	var user domain.RegisterResp
 	cust := port.Review{
+		TicketId:    req.TicketId,
+		UserId:      req.UserId,
 		RevRank:     req.RevRank,
 		RevComment:  req.RevComment,
+		RevImage:    req.RevImage,
+		Status:      true,
 		CreatedBy:   req.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
 	}
@@ -71,9 +78,11 @@ func (r reviewSvc) AddReview(req domain.ReviewRequest) (*domain.ReviewRespone, e
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot save Review	")
 	}
 	resp := domain.ReviewRespone{
-		UserId:      user.ID,
+		TicketId:    newCust.TicketId,
+		UserId:      newCust.UserId,
 		RevRank:     newCust.RevRank,
 		RevComment:  newCust.RevComment,
+		Status:      newCust.Status,
 		CreatedBy:   newCust.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
 	}
@@ -89,6 +98,16 @@ func (s reviewSvc) UpdateReview(id int, req domain.ReviewRequest) error {
 		UpdatedDate: currentTime.Format(time.DateTime),
 	}
 	err := s.repo.Update(id, cust)
+	if err != nil {
+		return errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot update review")
+	}
+	return nil
+}
+func (s reviewSvc) UpdateStatusRev(id int, req domain.StatusRev) error {
+	cust := port.Review{
+		Status: req.Status,
+	}
+	err := s.repo.UpdateStatusReview(id, cust.Status)
 	if err != nil {
 		return errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot update review")
 	}

@@ -2,6 +2,7 @@ package port
 
 type PaymentRepo interface {
 	GetAll() ([]Payment, error)
+	GetAllId(int) ([]Payment, error)
 	GetById(id int) (*Payment, error)
 	Create(Payment) (*Payment, error)
 	Update(int, Payment) error
@@ -17,6 +18,7 @@ type Payment struct {
 	TicketName  string `gorm:"notnull;type:varchar(150)"`
 	TicketPrice string `gorm:"notnull;type:varchar(50)"`
 	TicketDesc  string `gorm:"notnull;type:varchar(500)"`
+	TicketRepo  string `gorm:"notnull"`
 	CreatedBy   string `gorm:"notnull;type:varchar(10)"`
 	CreatedDate string `gorm:"notnull;type:varchar(20)"`
 	UpdatedBy   string `gorm:"null;type:varchar(10)"`

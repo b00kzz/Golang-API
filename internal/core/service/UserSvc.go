@@ -35,6 +35,7 @@ func (s registerSvc) GetAllUser() ([]domain.RegisterResp, error) {
 			Password:    c.Password,
 			Nickname:    c.Nickname,
 			Email:       c.Email,
+			Avatar:      c.Avatar,
 			Status:      c.Status,
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,
@@ -52,9 +53,9 @@ func (s registerSvc) GetUser(id int) (*domain.RegisterResp, error) {
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get user form DB")
 	}
 	resp := domain.RegisterResp{
-		ID:          cust.ID,
-		RoleId:      cust.RoleId,
-		Username:    cust.Username,
+		ID:       cust.ID,
+		RoleId:   cust.RoleId,
+		Username: cust.Username,
 		// Password:    cust.Password,
 		Nickname:    cust.Nickname,
 		Email:       cust.Email,

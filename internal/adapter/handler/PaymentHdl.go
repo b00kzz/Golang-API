@@ -85,3 +85,15 @@ func (h paymentHdl) DeletePayment(c *gin.Context) {
 		"message": "Delete Payment success!!",
 	})
 }
+func (h paymentHdl) GetPaymentsId(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("PaymentId"))
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+	}
+	res, err := h.svc.GetAllPaymentId(id)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+	c.JSON(http.StatusOK, res)
+}

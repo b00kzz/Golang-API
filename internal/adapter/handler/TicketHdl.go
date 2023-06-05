@@ -26,6 +26,18 @@ func (h ticketHdl) GetTickets(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, res)
 }
+func (h ticketHdl) GetAllByUserID(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("UserID"))
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+	}
+	res, err := h.svc.GetAllTicketID(id)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+	c.JSON(http.StatusOK, res)
+}
 
 func (h ticketHdl) GetTicket(c *gin.Context) {
 	id, err := strconv.Atoi(c.Param("TicketId"))

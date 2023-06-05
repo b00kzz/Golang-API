@@ -59,6 +59,7 @@ func (s paymentSvc) GetPayment(id int) (*domain.PaymentRespone, error) {
 		TicketName:  cust.TicketName,
 		TicketPrice: cust.TicketPrice,
 		TicketDesc:  cust.TicketDesc,
+		TicketRepo:  cust.TicketRepo,
 		CreatedBy:   cust.CreatedBy,
 		CreatedDate: cust.CreatedDate,
 		UpdatedBy:   cust.UpdatedBy,
@@ -77,6 +78,7 @@ func (r paymentSvc) AddPayment(req domain.PaymentRequest) (*domain.PaymentRespon
 		TicketName:  req.TicketName,
 		TicketPrice: req.TicketPrice,
 		TicketDesc:  req.TicketDesc,
+		TicketRepo:  req.TicketRepo,
 		CreatedBy:   req.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
 	}
@@ -92,6 +94,7 @@ func (r paymentSvc) AddPayment(req domain.PaymentRequest) (*domain.PaymentRespon
 		TicketName:  newCust.TicketName,
 		TicketPrice: newCust.TicketPrice,
 		TicketDesc:  newCust.TicketDesc,
+		TicketRepo:  newCust.TicketRepo,
 		CreatedBy:   newCust.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
 	}
@@ -118,4 +121,31 @@ func (s paymentSvc) DeletePayment(id int) error {
 		return errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot delete Payment")
 	}
 	return nil
+}
+
+func (s paymentSvc) GetAllPaymentId(id int) ([]domain.PaymentRespone, error) {
+	custs, err := s.repo.GetAllId(id)
+	if err != nil {
+		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get payment form DB")
+	}
+	resp := []domain.PaymentRespone{}
+	for _, c := range custs {
+		resp = append(resp, domain.PaymentRespone{
+			PayId:       c.PayId,
+			UserId:      c.UserId,
+			TicketId:    c.TicketId,
+			PaySlip:     c.PaySlip,
+			PayStatus:   c.PayStatus,
+			TicketName:  c.TicketName,
+			TicketPrice: c.TicketPrice,
+			TicketDesc:  c.TicketDesc,
+			TicketRepo:  c.TicketRepo,
+			CreatedBy:   c.CreatedBy,
+			CreatedDate: c.CreatedDate,
+			UpdatedBy:   c.UpdatedBy,
+			UpdatedDate: c.UpdatedDate,
+		})
+
+	}
+	return resp, nil
 }
