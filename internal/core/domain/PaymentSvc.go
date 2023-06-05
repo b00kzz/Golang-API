@@ -3,6 +3,7 @@ package domain
 type PaymentSvc interface {
 	GetAllPayment() ([]PaymentRespone, error)
 	GetAllPaymentId(int) ([]PaymentRespone, error)
+	GetAllUserId(int) ([]PaymentRespone, error)
 	GetPayment(int) (*PaymentRespone, error)
 	AddPayment(PaymentRequest) (*PaymentRespone, error)
 	UpdatePayment(int, PaymentRequest) error
@@ -12,6 +13,7 @@ type PaymentSvc interface {
 type PaymentRequest struct {
 	UserId      uint   `json:"userid"`
 	TicketId    uint   `json:"ticketid"`
+	ById        uint   `json:"byid"`
 	PaySlip     string `json:"payslip"`
 	PayStatus   string `json:"paymentstatus"`
 	TicketName  string `json:"ticketname"`

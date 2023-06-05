@@ -52,6 +52,7 @@ func bindPayment(g gin.Engine) {
 		v1.GET("/payments", hdl.GetPayments)
 		v1.GET("/payment/:PaymentId", hdl.GetPayment)
 		v1.GET("/payments/:PaymentId", hdl.GetPaymentsId)
+		v1.GET("/payments/user/:UserId", hdl.GetPayUserId)
 		v1.POST("/payment", hdl.AddPayment)
 		v1.PUT("/payment/:PaymentId", hdl.UpdatePayment)
 		v1.DELETE("/payment/:PaymentId", hdl.DeletePayment)
@@ -125,6 +126,7 @@ func bindTicket(g gin.Engine) {
 		v1.POST("/ticket", hdl.AddTicket)
 		v1.PUT("/ticket/:TicketId", hdl.UpdateTicket)
 		v1.PUT("/ticket/status/:TicketId", hdl.UpdateStatusTicket)
+		v1.PUT("/ticket/status/sell/:TicketId", hdl.UpdateSellStatus)
 		v1.DELETE("/ticket/:TicketId", hdl.DeleteTicket)
 		v1.GET("/search/:TicketName", hdl.Search)
 	}

@@ -73,6 +73,7 @@ func (r paymentSvc) AddPayment(req domain.PaymentRequest) (*domain.PaymentRespon
 	cust := port.Payment{
 		UserId:      req.UserId,
 		TicketId:    req.TicketId,
+		ById:        req.ById,
 		PaySlip:     req.PaySlip,
 		PayStatus:   "กำลังดำเนินการ",
 		TicketName:  req.TicketName,
@@ -135,6 +136,32 @@ func (s paymentSvc) GetAllPaymentId(id int) ([]domain.PaymentRespone, error) {
 			UserId:      c.UserId,
 			TicketId:    c.TicketId,
 			PaySlip:     c.PaySlip,
+			PayStatus:   c.PayStatus,
+			TicketName:  c.TicketName,
+			TicketPrice: c.TicketPrice,
+			TicketDesc:  c.TicketDesc,
+			TicketRepo:  c.TicketRepo,
+			CreatedBy:   c.CreatedBy,
+			CreatedDate: c.CreatedDate,
+			UpdatedBy:   c.UpdatedBy,
+			UpdatedDate: c.UpdatedDate,
+		})
+
+	}
+	return resp, nil
+}
+func (s paymentSvc) GetAllUserId(id int) ([]domain.PaymentRespone, error) {
+	custs, err := s.repo.GetAllUserId(id)
+	if err != nil {
+		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get payment form DB")
+	}
+	resp := []domain.PaymentRespone{}
+	for _, c := range custs {
+		resp = append(resp, domain.PaymentRespone{
+			// PayId:       c.PayId,
+			// UserId:      c.UserId,
+			// TicketId:    c.TicketId,
+			// PaySlip:     c.PaySlip,
 			PayStatus:   c.PayStatus,
 			TicketName:  c.TicketName,
 			TicketPrice: c.TicketPrice,

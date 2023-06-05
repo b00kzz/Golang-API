@@ -97,3 +97,15 @@ func (h paymentHdl) GetPaymentsId(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, res)
 }
+func (h paymentHdl) GetPayUserId(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("UserId"))
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+	}
+	res, err := h.svc.GetAllUserId(id)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+	c.JSON(http.StatusOK, res)
+}

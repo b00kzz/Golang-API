@@ -9,6 +9,7 @@ type TicketSvc interface {
 	DeleteTicket(int) error
 	Search(string) (*[]TicketRespone, error)
 	UpdateStatusTicket(int, StatusTicket) error
+	UpdateSellStatus(int, SellStatusTicket) error
 }
 
 type TicketRequest struct {
@@ -20,6 +21,7 @@ type TicketRequest struct {
 	TicketDesc  string `json:"ticketdesc"`
 	TicketRepo  string `json:"ticketrepo"`
 	Status      bool   `json:"status"`
+	SellStatus  bool   `json:"sellstatus"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`
@@ -36,6 +38,7 @@ type TicketRespone struct {
 	TicketDesc  string `json:"ticketdesc"`
 	TicketRepo  string `json:"ticketrepo"`
 	Status      bool   `json:"status"`
+	SellStatus  bool   `json:"sellstatus"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`
@@ -45,4 +48,7 @@ type TicketRespone struct {
 
 type StatusTicket struct {
 	Status bool `json:"status"`
+}
+type SellStatusTicket struct {
+	SellStatus bool `json:"sellstatus"`
 }

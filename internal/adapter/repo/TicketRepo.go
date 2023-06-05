@@ -85,3 +85,10 @@ func (c ticketRepo) UpdateStatusTicket(id int, status bool) error {
 	}
 	return nil
 }
+func (c ticketRepo) UpdateSellStatus(id int, status bool) error {
+	err := c.db.Model(&port.Ticket{}).Where("ticket_id = ?", id).Update("sell_status", status).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

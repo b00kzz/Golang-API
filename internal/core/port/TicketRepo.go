@@ -9,6 +9,7 @@ type TicketRepo interface {
 	Delete(int) error
 	Search(string) ([]Ticket, error)
 	UpdateStatusTicket(int, bool) error
+	UpdateSellStatus(int, bool) error
 }
 
 type Ticket struct {
@@ -20,7 +21,8 @@ type Ticket struct {
 	TicketImage string
 	TicketDesc  string `gorm:"notnull;type:varchar(500)"`
 	TicketRepo  string `gorm:"notnull"`
-	Status      bool   `gorm:"column:status;notnull;default:true"`
+	Status      bool   `gorm:"column:status;notnull"`
+	SellStatus  bool   `gorm:"notnull"`
 	CreatedBy   string `gorm:"notnull;type:varchar(10)"`
 	CreatedDate string `gorm:"notnull;type:varchar(20)"`
 	UpdatedBy   string `gorm:"null;type:varchar(10)"`

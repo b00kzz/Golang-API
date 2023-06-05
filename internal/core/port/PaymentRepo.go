@@ -3,6 +3,7 @@ package port
 type PaymentRepo interface {
 	GetAll() ([]Payment, error)
 	GetAllId(int) ([]Payment, error)
+	GetAllUserId(int) ([]Payment, error)
 	GetById(id int) (*Payment, error)
 	Create(Payment) (*Payment, error)
 	Update(int, Payment) error
@@ -13,6 +14,7 @@ type Payment struct {
 	PayId       uint   `gorm:"primaryKey;autoIncrement;type:int(10)"`
 	UserId      uint   `gorm:"notnull;type:int(10)"`
 	TicketId    uint   `gorm:"notnull;type:int(10)"`
+	ById        uint   `gorm:"notnull;type:int(10)"`
 	PaySlip     string `gorm:"notnull"`
 	PayStatus   string `gorm:"notnull;default=กำลังดำเนินการ;type:varchar(20)"`
 	TicketName  string `gorm:"notnull;type:varchar(150)"`

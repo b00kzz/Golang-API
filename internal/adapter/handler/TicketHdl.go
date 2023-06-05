@@ -122,3 +122,20 @@ func (h *ticketHdl) UpdateStatusTicket(c *gin.Context) {
 	})
 
 }
+func (h *ticketHdl) UpdateSellStatus(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("TicketId"))
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+	}
+	req := domain.SellStatusTicket{}
+	err = c.BindJSON(&req)
+	err = h.svc.UpdateSellStatus(id, req)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Update Ticket success!!",
+	})
+
+}

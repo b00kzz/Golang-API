@@ -33,6 +33,7 @@ func (s ticketSvc) GetAllTicket() ([]domain.TicketRespone, error) {
 			TicketImage: c.TicketImage,
 			TicketDesc:  c.TicketDesc,
 			Status:      c.Status,
+			SellStatus:  c.SellStatus,
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,
@@ -59,6 +60,7 @@ func (s ticketSvc) GetAllTicketID(id int) ([]domain.TicketRespone, error) {
 			TicketImage: c.TicketImage,
 			TicketDesc:  c.TicketDesc,
 			Status:      c.Status,
+			SellStatus:  c.SellStatus,
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,
@@ -77,6 +79,7 @@ func (s ticketSvc) GetTicket(id int) (*domain.TicketRespone, error) {
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get Ticket form DB")
 	}
 	resp := domain.TicketRespone{
+		UserId:      cust.UserId,
 		TicketId:    cust.TicketId,
 		TicketName:  cust.TicketName,
 		TicketType:  cust.TicketType,
@@ -97,6 +100,7 @@ func (s ticketSvc) GetTicket(id int) (*domain.TicketRespone, error) {
 func (r ticketSvc) AddTicket(req domain.TicketRequest) (*domain.TicketRespone, error) {
 	currentTime := time.Now()
 	cust := port.Ticket{
+		UserId:      req.UserId,
 		TicketName:  req.TicketName,
 		TicketType:  req.TicketType,
 		TicketPrice: req.TicketPrice,
@@ -104,6 +108,7 @@ func (r ticketSvc) AddTicket(req domain.TicketRequest) (*domain.TicketRespone, e
 		TicketDesc:  req.TicketDesc,
 		TicketRepo:  req.TicketRepo,
 		Status:      false,
+		SellStatus:  false,
 		CreatedBy:   req.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
 	}
@@ -112,6 +117,7 @@ func (r ticketSvc) AddTicket(req domain.TicketRequest) (*domain.TicketRespone, e
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot save Ticket	")
 	}
 	resp := domain.TicketRespone{
+		UserId:      newCust.UserId,
 		TicketName:  newCust.TicketName,
 		TicketType:  newCust.TicketType,
 		TicketPrice: newCust.TicketPrice,
@@ -181,6 +187,16 @@ func (s ticketSvc) UpdateStatusTicket(id int, req domain.StatusTicket) error {
 		Status: req.Status,
 	}
 	err := s.repo.UpdateStatusTicket(id, cust.Status)
+	if err != nil {
+		return errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot update Status: ")
+	}
+	return nil
+}
+func (s ticketSvc) UpdateSellStatus(id int, req domain.SellStatusTicket) error {
+	cust := port.Ticket{
+		SellStatus: req.SellStatus,
+	}
+	err := s.repo.UpdateSellStatus(id, cust.SellStatus)
 	if err != nil {
 		return errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot update Status: ")
 	}
