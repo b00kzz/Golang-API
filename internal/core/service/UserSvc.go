@@ -186,3 +186,29 @@ func (s registerSvc) UpdateUser(id int, req domain.RegisterReq) error {
 	}
 	return nil
 }
+
+func (s registerSvc) SearchUser(name string) (*[]domain.RegisterResp, error) {
+	custs, err := s.repo.Search(name)
+	if err != nil {
+		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get user form DB")
+	}
+	resp := []domain.RegisterResp{}
+	for _, c := range custs {
+		resp = append(resp, domain.RegisterResp{
+			ID:          c.ID,
+			RoleId:      c.RoleId,
+			Username:    c.Username,
+			Password:    c.Password,
+			Nickname:    c.Nickname,
+			Email:       c.Email,
+			Avatar:      c.Avatar,
+			Status:      c.Status,
+			CreatedBy:   c.CreatedBy,
+			CreatedDate: c.CreatedDate,
+			UpdatedBy:   c.UpdatedBy,
+			UpdatedDate: c.UpdatedDate,
+		})
+
+	}
+	return &resp, nil
+}

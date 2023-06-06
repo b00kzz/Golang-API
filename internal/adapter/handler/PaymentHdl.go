@@ -18,6 +18,13 @@ func NewPaymentHdl(svc domain.PaymentSvc) paymentHdl {
 	}
 }
 
+func (h paymentHdl) SearchPayment(c *gin.Context) {
+	name := c.Param("name")
+
+	res, _ := h.svc.SearchPayment(name)
+	c.JSON(http.StatusOK, res)
+}
+
 func (h paymentHdl) GetPayments(c *gin.Context) {
 	res, err := h.svc.GetAllPayment()
 	if err != nil {

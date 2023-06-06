@@ -2,6 +2,7 @@ package port
 
 type PaymentRepo interface {
 	GetAll() ([]Payment, error)
+	Search(string) ([]Payment, error)
 	GetAllId(int) ([]Payment, error)
 	GetAllUserId(int) ([]Payment, error)
 	GetById(id int) (*Payment, error)

@@ -2,6 +2,7 @@ package domain
 
 type RegisterSvc interface {
 	GetAllUser() ([]RegisterResp, error)
+	SearchUser(string) (*[]RegisterResp, error)
 	GetUser(int) (*RegisterResp, error)
 	AddUser(RegisterReq) (*RegisterResp, error)
 	UpdateUser(int, RegisterReq) error

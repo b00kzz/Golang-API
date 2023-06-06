@@ -43,6 +43,30 @@ func (s paymentSvc) GetAllPayment() ([]domain.PaymentRespone, error) {
 	}
 	return resp, nil
 }
+func (s paymentSvc) SearchPayment(name string) (*[]domain.PaymentRespone, error) {
+	custs, err := s.repo.Search(name)
+	if err != nil {
+		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot get payment form DB")
+	}
+	resp := []domain.PaymentRespone{}
+	for _, c := range custs {
+		resp = append(resp, domain.PaymentRespone{
+			PayId:       c.PayId,
+			UserId:      c.UserId,
+			TicketId:    c.TicketId,
+			PaySlip:     c.PaySlip,
+			PayStatus:   c.PayStatus,
+			TicketName:  c.TicketName,
+			TicketPrice: c.TicketPrice,
+			TicketDesc:  c.TicketDesc,
+			CreatedBy:   c.CreatedBy,
+			CreatedDate: c.CreatedDate,
+			UpdatedBy:   c.UpdatedBy,
+			UpdatedDate: c.UpdatedDate,
+		})
+	}
+	return &resp, nil
+}
 
 func (s paymentSvc) GetPayment(id int) (*domain.PaymentRespone, error) {
 

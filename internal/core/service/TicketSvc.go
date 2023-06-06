@@ -172,6 +172,7 @@ func (s ticketSvc) Search(ticketName string) (*[]domain.TicketRespone, error) {
 			TicketPrice: c.TicketPrice,
 			TicketDesc:  c.TicketDesc,
 			Status:      c.Status,
+			SellStatus:  c.SellStatus,
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,

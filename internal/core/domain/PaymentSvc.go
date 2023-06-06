@@ -2,6 +2,7 @@ package domain
 
 type PaymentSvc interface {
 	GetAllPayment() ([]PaymentRespone, error)
+	SearchPayment(string) (*[]PaymentRespone, error)
 	GetAllPaymentId(int) ([]PaymentRespone, error)
 	GetAllUserId(int) ([]PaymentRespone, error)
 	GetPayment(int) (*PaymentRespone, error)

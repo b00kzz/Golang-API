@@ -2,6 +2,7 @@ package port
 
 type RegisterRepo interface {
 	GetAll() ([]User, error)
+	Search(string) ([]User, error)
 	GetById(id int) (*User, error)
 	Create(User) (*User, error)
 	Update(int, User) error

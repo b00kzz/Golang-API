@@ -71,7 +71,7 @@ func (c ticketRepo) Delete(id int) error {
 
 func (c ticketRepo) Search(ticketName string) ([]port.Ticket, error) {
 	ticket := []port.Ticket{}
-	result := c.db.Find(&ticket, "ticket_name LIKE ?", "%"+ticketName+"%")
+	result := c.db.Find(&ticket, "ticket_name LIKE ? OR ticket_type LIKE ? OR ticket_price LIKE ? OR ticket_desc LIKE ?", "%"+ticketName+"%", "%"+ticketName+"%", "%"+ticketName+"%", "%"+ticketName+"%")
 	if result.Error != nil {
 		return ticket, errors.New("ticket not found")
 	}

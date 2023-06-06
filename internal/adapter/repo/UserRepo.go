@@ -17,6 +17,15 @@ func NewRegisterRepo(db *gorm.DB) port.RegisterRepo {
 	}
 }
 
+func (c registerRepo) Search(name string) ([]port.User, error) {
+	user := []port.User{}
+	result := c.db.Find(&user, "username LIKE ? OR nickname LIKE ? OR Email LIKE ?", "%"+name+"%", "%"+name+"%", "%"+name+"%")
+	if result.Error != nil {
+		return user, errors.New("user not found")
+	}
+	return user, nil
+}
+
 // มีการเปลี่ยนแปลง
 func (c registerRepo) Create(userExist port.User) (*port.User, error) {
 	_ = c.db.Where("username = ?", userExist.Username).First(&userExist).Error

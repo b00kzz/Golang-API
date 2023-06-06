@@ -1,6 +1,7 @@
 package repo
 
 import (
+	"errors"
 	"ticket/goapi/internal/core/port"
 
 	"gorm.io/gorm"
@@ -16,6 +17,15 @@ func NewPaymentRepo(db *gorm.DB) port.PaymentRepo {
 	}
 }
 
+func (c paymentRepo) Search(name string) ([]port.Payment, error) {
+	payments := []port.Payment{}
+	result := c.db.Find(&payments, "ticket_name LIKE ? OR ticket_price LIKE ? OR ticket_desc LIKE ?", "%"+name+"%", "%"+name+"%", "%"+name+"%")
+
+	if result.Error  != nil {
+		return payments, errors.New("payment not found")
+	}
+	return payments, nil
+}
 func (c paymentRepo) GetAll() ([]port.Payment, error) {
 	payments := []port.Payment{}
 	err := c.db.Find(&payments).Error
@@ -66,6 +76,7 @@ func (c paymentRepo) GetAllId(id int) ([]port.Payment, error) {
 	}
 	return payments, nil
 }
+
 func (c paymentRepo) GetAllUserId(id int) ([]port.Payment, error) {
 	payments := []port.Payment{}
 	err := c.db.Where("user_id = ?", id).Find(&payments).Error
