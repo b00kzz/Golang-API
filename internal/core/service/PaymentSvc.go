@@ -182,10 +182,10 @@ func (s paymentSvc) GetAllUserId(id int) ([]domain.PaymentRespone, error) {
 	resp := []domain.PaymentRespone{}
 	for _, c := range custs {
 		resp = append(resp, domain.PaymentRespone{
-			// PayId:       c.PayId,
-			// UserId:      c.UserId,
-			// TicketId:    c.TicketId,
-			// PaySlip:     c.PaySlip,
+			PayId:       c.PayId,
+			TicketId:    c.TicketId,
+			UserId:      c.UserId,
+			PaySlip:     c.PaySlip,
 			PayStatus:   c.PayStatus,
 			TicketName:  c.TicketName,
 			TicketPrice: c.TicketPrice,

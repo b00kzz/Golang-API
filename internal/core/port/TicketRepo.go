@@ -23,7 +23,7 @@ type Ticket struct {
 	TicketRepo  string `gorm:"notnull"`
 	Status      bool   `gorm:"column:status;notnull"`
 	SellStatus  bool   `gorm:"notnull"`
-	CreatedBy   string `gorm:"notnull;type:varchar(10)"`
+	CreatedBy   string `gorm:"notnull;type:varchar(50)"`
 	CreatedDate string `gorm:"notnull;type:varchar(20)"`
 	UpdatedBy   string `gorm:"null;type:varchar(10)"`
 	UpdatedDate string `gorm:"null;type:varchar(20)"`
