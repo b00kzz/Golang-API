@@ -78,6 +78,7 @@ func (r registerSvc) AddUser(req domain.RegisterReq) (*domain.RegisterResp, erro
 		Password:    hashpwd,
 		Nickname:    req.Nickname,
 		Email:       req.Email,
+		Avatar:      "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-businessman-avatar-icon-flat-style-png-image_1917273.jpg",
 		Status:      true,
 		CreatedBy:   "System",
 		CreatedDate: currentTime.Format(time.DateTime),
