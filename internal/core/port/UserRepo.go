@@ -7,6 +7,7 @@ type RegisterRepo interface {
 	Create(User) (*User, error)
 	Update(int, User) error
 	UpdateRole(int, string) error
+	UpdatePassword(int, string) error
 	UpdateStatus(int, bool) error
 	Delete(int) error
 	FindByUsername(username string) (User, error)

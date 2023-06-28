@@ -169,12 +169,22 @@ func (s registerSvc) UpdateStatus(id int, req domain.Status) error {
 	}
 	return nil
 }
+func (s registerSvc) UpdatePasswd(id int, req domain.Password) error {
+	hashpwd, _ := utils.HashPassword(req.Password)
+	cust := port.User{
+		Password: hashpwd,
+	}
+	err := s.repo.UpdatePassword(id, cust.Password)
+	if err != nil {
+		return errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot update Password: ")
+	}
+	return nil
+}
 
 func (s registerSvc) UpdateUser(id int, req domain.RegisterReq) error {
 	currentTime := time.Now()
-	hashpwd, _ := utils.HashPassword(req.Password)
+	// hashpwd, _ := utils.HashPassword(req.Password)
 	cust := port.User{
-		Password:    hashpwd,
 		Nickname:    req.Nickname,
 		Email:       req.Email,
 		Avatar:      req.Avatar,

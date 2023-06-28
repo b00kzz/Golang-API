@@ -85,6 +85,14 @@ func (c registerRepo) UpdateRole(id int, role string) error {
 	}
 	return nil
 }
+func (c registerRepo) UpdatePassword(id int, password string) error {
+	err := c.db.Model(&port.User{}).Where("user_id = ?", id).Update("password", password).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 func (c registerRepo) UpdateStatus(id int, status bool) error {
 	err := c.db.Model(&port.User{}).Where("user_id = ?", id).Update("status", status).Error
 	if err != nil {

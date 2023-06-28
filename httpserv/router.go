@@ -77,6 +77,7 @@ func bindUser(g gin.Engine) {
 		v1.POST("/login", hdl.Login)
 		v1.PUT("user/role/:ID", hdl.UpdateRole)
 		v1.PUT("user/status/:ID", hdl.UpdateStatus)
+		v1.PUT("password/:ID", hdl.UpdatePasswd)
 		v1.GET("/user", middleware.DeserializeUser(repo), hdl.GetUsers)
 		v1.GET("/profile", middleware.DeserializeUser(repo), hdl.GetProfile)
 	}

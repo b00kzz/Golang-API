@@ -169,7 +169,24 @@ func (h *registerHdl) UpdateStatus(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"message": "Update User success!!",
+		"message": "Update Status success!!",
+	})
+
+}
+func (h *registerHdl) UpdatePasswd(c *gin.Context) {
+	id, err := strconv.Atoi(c.Param("ID"))
+	if err != nil {
+		c.AbortWithError(http.StatusBadRequest, err)
+	}
+	req := domain.Password{}
+	err = c.BindJSON(&req)
+	err = h.svc.UpdatePasswd(id, req)
+	if err != nil {
+		c.Error(err)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Update Password success!!",
 	})
 
 }

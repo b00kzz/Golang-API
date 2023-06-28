@@ -11,6 +11,7 @@ type RegisterSvc interface {
 	GetProfile(string) (*RegisterResp, error)
 	UpdateStatus(int, Status) error
 	UpdateRole(int, Role) error
+	UpdatePasswd(int, Password) error
 }
 
 type RegisterReq struct {
@@ -70,6 +71,5 @@ type Status struct {
 }
 
 type Password struct {
-	Password  string `json:"password"`
-	OldPasswd string `json:"oldpassword"`
+	Password string `json:"password"`
 }
