@@ -92,3 +92,10 @@ func (c ticketRepo) UpdateSellStatus(id int, status bool) error {
 	}
 	return nil
 }
+func (c ticketRepo) UpdateCount(id int, ticket port.Ticket) error {
+	err := c.db.Model(&port.Ticket{}).Where("ticket_id = ?", id).Update("count", gorm.Expr("count + ?", ticket.Count)).Error
+	if err != nil {
+		return err
+	}
+	return nil
+}

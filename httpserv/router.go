@@ -128,6 +128,7 @@ func bindTicket(g gin.Engine) {
 		v1.GET("/ticketid/:UserID", hdl.GetAllByUserID)
 		v1.POST("/ticket", hdl.AddTicket)
 		v1.PUT("/ticket/:TicketId", hdl.UpdateTicket)
+		v1.PUT("/ticket/count/:TicketId", hdl.UpdateCount)
 		v1.PUT("/ticket/status/:TicketId", hdl.UpdateStatusTicket)
 		v1.PUT("/ticket/status/sell/:TicketId", hdl.UpdateSellStatus)
 		v1.DELETE("/ticket/:TicketId", hdl.DeleteTicket)

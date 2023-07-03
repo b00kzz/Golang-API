@@ -10,18 +10,20 @@ type TicketSvc interface {
 	Search(string) (*[]TicketRespone, error)
 	UpdateStatusTicket(int, StatusTicket) error
 	UpdateSellStatus(int, SellStatusTicket) error
+	UpdateCount(int, TicketRequest) error
 }
 
 type TicketRequest struct {
 	UserId      uint   `json:"userid"`
 	TicketName  string `json:"ticketname"`
 	TicketType  string `json:"tickettype"`
-	TicketPrice string `json:"ticketprice"`
+	TicketPrice int `json:"ticketprice"`
 	TicketImage string `json:"ticketimage"`
 	TicketDesc  string `json:"ticketdesc"`
 	TicketRepo  string `json:"ticketrepo"`
 	Status      bool   `json:"status"`
 	SellStatus  bool   `json:"sellstatus"`
+	Count       int    `json:"count"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`
@@ -33,12 +35,13 @@ type TicketRespone struct {
 	UserId      uint   `json:"userid"`
 	TicketName  string `json:"ticketname"`
 	TicketType  string `json:"tickettype"`
-	TicketPrice string `json:"ticketprice"`
+	TicketPrice int `json:"ticketprice"`
 	TicketImage string `json:"ticketimage"`
 	TicketDesc  string `json:"ticketdesc"`
 	TicketRepo  string `json:"ticketrepo"`
 	Status      bool   `json:"status"`
 	SellStatus  bool   `json:"sellstatus"`
+	Count       int    `json:"count"`
 	CreatedBy   string `json:"createdby"`
 	CreatedDate string `json:"createddate"`
 	UpdatedBy   string `json:"updatedby"`

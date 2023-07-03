@@ -19,7 +19,7 @@ type Payment struct {
 	PaySlip     string `gorm:"notnull"`
 	PayStatus   string `gorm:"notnull;default=กำลังดำเนินการ;type:varchar(20)"`
 	TicketName  string `gorm:"notnull;type:varchar(150)"`
-	TicketPrice string `gorm:"notnull;type:varchar(50)"`
+	TicketPrice int    `gorm:"notnull;type:int(10)"`
 	TicketDesc  string `gorm:"notnull;type:varchar(500)"`
 	TicketRepo  string `gorm:"notnull"`
 	CreatedBy   string `gorm:"notnull;type:varchar(10)"`

@@ -18,7 +18,7 @@ type PaymentRequest struct {
 	PaySlip     string `json:"payslip"`
 	PayStatus   string `json:"paymentstatus"`
 	TicketName  string `json:"ticketname"`
-	TicketPrice string `json:"ticketprice"`
+	TicketPrice int    `json:"ticketprice"`
 	TicketDesc  string `json:"ticketdesc"`
 	TicketRepo  string `json:"ticketrepo"`
 	CreatedBy   string `json:"createdby"`
@@ -34,7 +34,7 @@ type PaymentRespone struct {
 	TicketId    uint   `json:"ticketid"`
 	PayStatus   string `json:"paymentstatus"`
 	TicketName  string `json:"ticketname"`
-	TicketPrice string `json:"ticketprice"`
+	TicketPrice int    `json:"ticketprice"`
 	TicketDesc  string `json:"ticketdesc"`
 	TicketRepo  string `json:"ticketrepo"`
 	CreatedBy   string `json:"createdby"`

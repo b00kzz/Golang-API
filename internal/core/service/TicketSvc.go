@@ -1,6 +1,7 @@
 package service
 
 import (
+	"fmt"
 	"net/http"
 	"ticket/goapi/errs"
 	"ticket/goapi/internal/core/domain"
@@ -34,11 +35,12 @@ func (s ticketSvc) GetAllTicket() ([]domain.TicketRespone, error) {
 			TicketDesc:  c.TicketDesc,
 			Status:      c.Status,
 			SellStatus:  c.SellStatus,
+			Count:       c.Count,
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,
 			UpdatedDate: c.UpdatedDate,
-			TicketQr:    ("https://promptpay.io/0942710120/" + c.TicketPrice + ".png"),
+			TicketQr:    fmt.Sprintf("https://promptpay.io/0942710120/%d.png", c.TicketPrice),
 		})
 
 	}
@@ -61,11 +63,12 @@ func (s ticketSvc) GetAllTicketID(id int) ([]domain.TicketRespone, error) {
 			TicketDesc:  c.TicketDesc,
 			Status:      c.Status,
 			SellStatus:  c.SellStatus,
+			Count:       c.Count,
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,
 			UpdatedDate: c.UpdatedDate,
-			TicketQr:    ("https://promptpay.io/0942710120/" + c.TicketPrice + ".png"),
+			TicketQr:    fmt.Sprintf("https://promptpay.io/0942710120/%d.png", c.TicketPrice),
 		})
 
 	}
@@ -88,11 +91,12 @@ func (s ticketSvc) GetTicket(id int) (*domain.TicketRespone, error) {
 		TicketDesc:  cust.TicketDesc,
 		TicketRepo:  cust.TicketRepo,
 		Status:      cust.Status,
+		Count:       cust.Count,
 		CreatedBy:   cust.CreatedBy,
 		CreatedDate: cust.CreatedDate,
 		UpdatedBy:   cust.UpdatedBy,
 		UpdatedDate: cust.UpdatedDate,
-		TicketQr:    ("https://promptpay.io/0942710120/" + cust.TicketPrice + ".png"),
+		TicketQr:    fmt.Sprintf("https://promptpay.io/0942710120/%d.png", cust.TicketPrice),
 	}
 	return &resp, nil
 }
@@ -109,6 +113,7 @@ func (r ticketSvc) AddTicket(req domain.TicketRequest) (*domain.TicketRespone, e
 		TicketRepo:  req.TicketRepo,
 		Status:      false,
 		SellStatus:  false,
+		Count:       0,
 		CreatedBy:   req.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
 	}
@@ -124,9 +129,10 @@ func (r ticketSvc) AddTicket(req domain.TicketRequest) (*domain.TicketRespone, e
 		TicketImage: newCust.TicketImage,
 		TicketDesc:  newCust.TicketDesc,
 		Status:      newCust.Status,
+		Count:       newCust.Count,
 		CreatedBy:   newCust.CreatedBy,
 		CreatedDate: currentTime.Format(time.DateTime),
-		TicketQr:    ("https://promptpay.io/0942710120/" + newCust.TicketPrice + ".png"),
+		TicketQr:    fmt.Sprintf("https://promptpay.io/0942710120/%d.png", newCust.TicketPrice),
 	}
 
 	return &resp, nil
@@ -190,6 +196,18 @@ func (s ticketSvc) UpdateStatusTicket(id int, req domain.StatusTicket) error {
 	err := s.repo.UpdateStatusTicket(id, cust.Status)
 	if err != nil {
 		return errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot update Status: ")
+	}
+	return nil
+}
+func (s ticketSvc) UpdateCount(id int, req domain.TicketRequest) error {
+	currentTime := time.Now()
+	cust := port.Ticket{
+		Count:       +1,
+		UpdatedDate: currentTime.Format(time.DateTime),
+	}
+	err := s.repo.UpdateCount(id, cust)
+	if err != nil {
+		return errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot update Count: ")
 	}
 	return nil
 }
