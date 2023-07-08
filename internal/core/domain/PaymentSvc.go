@@ -30,6 +30,7 @@ type PaymentRequest struct {
 type PaymentRespone struct {
 	PayId       uint   `json:"payid"`
 	UserId      uint   `json:"userid"`
+	ById        uint   `json:"byid"`
 	PaySlip     string `json:"payslip"`
 	TicketId    uint   `json:"ticketid"`
 	PayStatus   string `json:"paymentstatus"`

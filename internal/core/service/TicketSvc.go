@@ -33,6 +33,7 @@ func (s ticketSvc) GetAllTicket() ([]domain.TicketRespone, error) {
 			TicketPrice: c.TicketPrice,
 			TicketImage: c.TicketImage,
 			TicketDesc:  c.TicketDesc,
+			TicketRepo:  c.TicketRepo,
 			Status:      c.Status,
 			SellStatus:  c.SellStatus,
 			Count:       c.Count,
@@ -61,6 +62,7 @@ func (s ticketSvc) GetAllTicketID(id int) ([]domain.TicketRespone, error) {
 			TicketPrice: c.TicketPrice,
 			TicketImage: c.TicketImage,
 			TicketDesc:  c.TicketDesc,
+			TicketRepo:  c.TicketRepo,
 			Status:      c.Status,
 			SellStatus:  c.SellStatus,
 			Count:       c.Count,
@@ -146,6 +148,7 @@ func (s ticketSvc) UpdateTicket(id int, req domain.TicketRequest) error {
 		TicketPrice: req.TicketPrice,
 		TicketImage: req.TicketImage,
 		TicketDesc:  req.TicketDesc,
+		TicketRepo:  req.TicketRepo,
 		UpdatedBy:   req.UpdatedBy,
 		UpdatedDate: currentTime.Format(time.DateTime),
 	}
