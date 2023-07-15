@@ -66,6 +66,9 @@ func (h registerHdl) UpdateUser(c *gin.Context) {
 
 	req := domain.RegisterReq{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdateUser(id, req)
 	if err != nil {
 		c.Error(err)
@@ -195,5 +198,11 @@ func (h registerHdl) SearchUser(c *gin.Context) {
 	name := c.Param("name")
 
 	res, _ := h.svc.SearchUser(name)
+	c.JSON(http.StatusOK, res)
+}
+
+func (h registerHdl) GetUserByUsernane(c *gin.Context) {
+	username := c.Param("username")
+	res, _ := h.svc.GetProfile(username)
 	c.JSON(http.StatusOK, res)
 }

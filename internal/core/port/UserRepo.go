@@ -10,7 +10,7 @@ type RegisterRepo interface {
 	UpdatePassword(int, string) error
 	UpdateStatus(int, bool) error
 	Delete(int) error
-	FindByUsername(username string) (User, error)
+	FindByUsername(username string) (*User, error)
 }
 
 type User struct {

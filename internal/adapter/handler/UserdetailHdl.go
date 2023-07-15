@@ -44,6 +44,9 @@ func (h userDetailHdl) GetUserDetail(c *gin.Context) {
 func (h userDetailHdl) AddUserDetail(c *gin.Context) {
 	req := domain.UserDetailRequest{}
 	err := c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	res, err := h.svc.AddUserDetail(req)
 	if err != nil {
 		c.Error(err)
@@ -60,6 +63,9 @@ func (h userDetailHdl) UpdateUserDetail(c *gin.Context) {
 
 	req := domain.UserDetailRequest{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdateUserDetail(id, req)
 	if err != nil {
 		c.Error(err)

@@ -44,6 +44,9 @@ func (h customerHdl) GetCustomer(c *gin.Context) {
 func (h customerHdl) AddCustomer(c *gin.Context) {
 	req := domain.CustomerReq{}
 	err := c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	res, err := h.svc.AddCustomer(req)
 	if err != nil {
 		c.Error(err)

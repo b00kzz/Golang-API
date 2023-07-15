@@ -56,6 +56,9 @@ func (h ticketHdl) GetTicket(c *gin.Context) {
 func (h ticketHdl) AddTicket(c *gin.Context) {
 	req := domain.TicketRequest{}
 	err := c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	res, err := h.svc.AddTicket(req)
 	if err != nil {
 		c.Error(err)
@@ -72,6 +75,9 @@ func (h ticketHdl) UpdateTicket(c *gin.Context) {
 
 	req := domain.TicketRequest{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdateTicket(id, req)
 	if err != nil {
 		c.Error(err)
@@ -112,6 +118,9 @@ func (h *ticketHdl) UpdateStatusTicket(c *gin.Context) {
 	}
 	req := domain.StatusTicket{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdateStatusTicket(id, req)
 	if err != nil {
 		c.Error(err)
@@ -129,6 +138,9 @@ func (h *ticketHdl) UpdateSellStatus(c *gin.Context) {
 	}
 	req := domain.SellStatusTicket{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdateSellStatus(id, req)
 	if err != nil {
 		c.Error(err)
@@ -146,6 +158,9 @@ func (h *ticketHdl) UpdateCount(c *gin.Context) {
 	}
 	req := domain.TicketRequest{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdateCount(id, req)
 	if err != nil {
 		c.Error(err)

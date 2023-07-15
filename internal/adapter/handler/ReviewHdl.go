@@ -44,6 +44,9 @@ func (h reviewHdl) GetReview(c *gin.Context) {
 func (h reviewHdl) AddReview(c *gin.Context) {
 	req := domain.ReviewRequest{}
 	err := c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	res, err := h.svc.AddReview(req)
 	if err != nil {
 		c.Error(err)
@@ -60,6 +63,9 @@ func (h reviewHdl) UpdateReview(c *gin.Context) {
 
 	req := domain.ReviewRequest{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdateReview(id, req)
 	if err != nil {
 		c.Error(err)
@@ -77,6 +83,9 @@ func (h reviewHdl) UpdateReviewStatus(c *gin.Context) {
 
 	req := domain.StatusRev{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdateStatusRev(id, req)
 	if err != nil {
 		c.Error(err)

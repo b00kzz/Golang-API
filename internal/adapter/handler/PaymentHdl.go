@@ -51,6 +51,9 @@ func (h paymentHdl) GetPayment(c *gin.Context) {
 func (h paymentHdl) AddPayment(c *gin.Context) {
 	req := domain.PaymentRequest{}
 	err := c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	res, err := h.svc.AddPayment(req)
 	if err != nil {
 		c.Error(err)
@@ -67,6 +70,9 @@ func (h paymentHdl) UpdatePayment(c *gin.Context) {
 
 	req := domain.PaymentRequest{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdatePayment(id, req)
 	if err != nil {
 		c.Error(err)

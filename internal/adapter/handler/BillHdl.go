@@ -44,6 +44,9 @@ func (h billHdl) GetBill(c *gin.Context) {
 func (h billHdl) AddBill(c *gin.Context) {
 	req := domain.BillRequest{}
 	err := c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	res, err := h.svc.AddBill(req)
 	if err != nil {
 		c.Error(err)
@@ -60,6 +63,9 @@ func (h billHdl) UpdateBill(c *gin.Context) {
 
 	req := domain.BillRequest{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdateBill(id, req)
 	if err != nil {
 		c.Error(err)

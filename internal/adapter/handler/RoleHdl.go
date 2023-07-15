@@ -44,6 +44,9 @@ func (h roleHdl) GetRole(c *gin.Context) {
 func (h roleHdl) AddRole(c *gin.Context) {
 	req := domain.RoleRequest{}
 	err := c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	res, err := h.svc.AddRole(req)
 	if err != nil {
 		c.Error(err)
@@ -60,6 +63,9 @@ func (h roleHdl) UpdateRole(c *gin.Context) {
 
 	req := domain.RoleRequest{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdateRole(id, req)
 	if err != nil {
 		c.Error(err)

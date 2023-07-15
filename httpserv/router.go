@@ -70,6 +70,7 @@ func bindUser(g gin.Engine) {
 	{
 		v1.GET("/users", hdl.GetUsers)
 		v1.GET("/user/:ID", hdl.GetUser)
+		v1.GET("/user/profile/:username", hdl.GetUserByUsernane)
 		v1.GET("/user/search/:name", hdl.SearchUser)
 		v1.POST("/register", hdl.AddUser)
 		v1.PUT("/user/:ID", hdl.UpdateUser)
@@ -158,5 +159,12 @@ func bindImage(g gin.Engine) {
 	{
 		v1.POST("/image", handler.FileUpload())
 		v1.POST("/remote", handler.RemoteUpload())
+	}
+}
+
+func bindEmail(g gin.Engine) {
+	v1 := g.Group("/v1")
+	{
+		v1.POST("/sender", handler.SendMail())
 	}
 }

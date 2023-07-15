@@ -68,14 +68,14 @@ func (c registerRepo) GetById(id int) (*port.User, error) {
 	return &userID, nil
 }
 
-func (u registerRepo) FindByUsername(username string) (port.User, error) {
+func (u registerRepo) FindByUsername(username string) (*port.User, error) {
 	var users port.User
 	result := u.db.First(&users, "username = ?", username)
 
 	if result.Error != nil {
-		return users, errors.New("invalid username or Password")
+		return &users, errors.New("invalid username or Password")
 	}
-	return users, nil
+	return &users, nil
 }
 
 func (c registerRepo) UpdateRole(id int, role string) error {
