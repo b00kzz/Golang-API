@@ -28,13 +28,13 @@ func (s sender) SendEmail(req domain.SenderEmail) error {
 		Image:   req.Image,
 	}
 
-	body := fmt.Sprintf(`<p>จาก <b>Morlam Ticket</b>: ผลการซื้อ %s</p>`, req.Body)
-	body += fmt.Sprintf(`<img src="%s" width="100" height="100" />`, req.Image)
+	body := fmt.Sprintf(`<p>จาก <b>Morlam Ticket</b>: ผลการซื้อ %s</p>`, cust.Body)
+	body += fmt.Sprintf(`<img src="%s" width="100" height="100" />`, cust.Image)
 
 	msg := "MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\r\n"
-	msg += fmt.Sprintf("From: %s\r\n", req.Sender)
-	msg += fmt.Sprintf("To: %s\r\n", req.To)
-	msg += fmt.Sprintf("Subject: %s\r\n", req.SubJect)
+	msg += fmt.Sprintf("From: %s\r\n", cust.Sender)
+	msg += fmt.Sprintf("To: %s\r\n", cust.To)
+	msg += fmt.Sprintf("Subject: %s\r\n", cust.SubJect)
 	msg += fmt.Sprintf("\r\n%s\r\n", body)
 
 	err := smtp.SendMail(addr, auth, from, []string{cust.To}, []byte(msg))

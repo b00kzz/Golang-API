@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"net/http"
 	"ticket/goapi/internal/core/domain"
 	"ticket/goapi/internal/core/service"
 
@@ -28,6 +29,8 @@ func SendMail() gin.HandlerFunc {
 		if err != nil {
 			c.Error(err)
 		}
-
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Emails sent successfully!!",
+		})
 	}
 }
