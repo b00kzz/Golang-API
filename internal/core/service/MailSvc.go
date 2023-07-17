@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	"net/smtp"
+	config "ticket/goapi/infrastructure"
 	"ticket/goapi/internal/core/domain"
 )
 
@@ -13,15 +14,10 @@ func NewSenderSvc() domain.SenderSvc {
 }
 
 func (s sender) SendEmail(req domain.SenderEmail) error {
-	var addr = "smtp.gmail.com:587"
-	var from = "Morlam Ticket"
-	var user = "qwasq110@gmail.com"
-	var password = "gqisfvfbozgqvvll"
-	var host = "smtp.gmail.com"
-	auth := smtp.PlainAuth("", user, password, host)
+	auth := smtp.PlainAuth("", config.EnvSMTP_User(), config.EnvSMTP_Password(), config.EnvSMTP_Host())
 
 	cust := domain.SenderEmail{
-		Sender:  from,
+		Sender:  config.EnvSMTP_From(),
 		SubJect: req.SubJect,
 		Body:    req.Body,
 		To:      req.To,
@@ -37,7 +33,7 @@ func (s sender) SendEmail(req domain.SenderEmail) error {
 	msg += fmt.Sprintf("Subject: %s\r\n", cust.SubJect)
 	msg += fmt.Sprintf("\r\n%s\r\n", body)
 
-	err := smtp.SendMail(addr, auth, from, []string{cust.To}, []byte(msg))
+	err := smtp.SendMail(config.EnvSMTP_ADDR(), auth, config.EnvSMTP_From(), []string{cust.To}, []byte(msg))
 	if err != nil {
 		fmt.Println(err)
 	}

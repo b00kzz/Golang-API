@@ -32,5 +32,5 @@ func SendMail() gin.HandlerFunc {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "Emails sent successfully!!",
 		})
-	}
+	}	
 }
