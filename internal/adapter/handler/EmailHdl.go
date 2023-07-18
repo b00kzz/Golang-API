@@ -8,17 +8,17 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// type senderHdl struct {
-// 	svc domain.SenderSvc
-// }
+type senderHdl struct {
+	svc domain.SenderSvc
+}
 
-// func NewSenderHdl(svc domain.SenderSvc) senderHdl {
-// 	return senderHdl{
-// 		svc: svc,
-// 	}
-// }
+func NewSenderHdl(svc domain.SenderSvc) senderHdl {
+	return senderHdl{
+		svc: svc,
+	}
+}
 
-func SendMail() gin.HandlerFunc {
+func (s senderHdl) SendMail() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		req := domain.SenderEmail{}
 		err := c.BindJSON(&req)
@@ -28,9 +28,10 @@ func SendMail() gin.HandlerFunc {
 		err = service.NewSenderSvc().SendEmail(req)
 		if err != nil {
 			c.Error(err)
+			return
 		}
 		c.JSON(http.StatusOK, gin.H{
 			"message": "Emails sent successfully!!",
 		})
-	}	
+	}
 }

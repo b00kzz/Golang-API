@@ -63,6 +63,9 @@ func (h customerHdl) UpdateCustomer(c *gin.Context) {
 
 	req := domain.CustomerReq{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdateCustomer(id, req)
 	if err != nil {
 		c.Error(err)

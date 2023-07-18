@@ -163,8 +163,10 @@ func bindImage(g gin.Engine) {
 }
 
 func bindEmail(g gin.Engine) {
+	svc := service.NewSenderSvc()
+	hdl := handler.NewSenderHdl(svc)
 	v1 := g.Group("/v1")
 	{
-		v1.POST("/sender", handler.SendMail())
+		v1.POST("/sender", hdl.SendMail())
 	}
 }

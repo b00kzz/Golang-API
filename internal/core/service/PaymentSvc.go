@@ -35,6 +35,7 @@ func (s paymentSvc) GetAllPayment() ([]domain.PaymentRespone, error) {
 			TicketName:  c.TicketName,
 			TicketPrice: c.TicketPrice,
 			TicketDesc:  c.TicketDesc,
+			TicketRepo:  c.TicketRepo,
 			CreatedBy:   c.CreatedBy,
 			CreatedDate: c.CreatedDate,
 			UpdatedBy:   c.UpdatedBy,

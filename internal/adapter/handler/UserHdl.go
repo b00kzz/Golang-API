@@ -149,6 +149,9 @@ func (h *registerHdl) UpdateRole(c *gin.Context) {
 
 	req := domain.Role{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdateRole(id, req)
 	if err != nil {
 		c.Error(err)
@@ -166,6 +169,9 @@ func (h *registerHdl) UpdateStatus(c *gin.Context) {
 	}
 	req := domain.Status{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdateStatus(id, req)
 	if err != nil {
 		c.Error(err)
@@ -183,6 +189,9 @@ func (h *registerHdl) UpdatePasswd(c *gin.Context) {
 	}
 	req := domain.Password{}
 	err = c.BindJSON(&req)
+	if err != nil {
+		c.Error(err)
+	}
 	err = h.svc.UpdatePasswd(id, req)
 	if err != nil {
 		c.Error(err)
