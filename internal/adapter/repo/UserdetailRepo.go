@@ -27,7 +27,7 @@ func (c userdetailRepo) GetAll() ([]port.UserDetail, error) {
 
 func (c userdetailRepo) GetById(id int) (*port.UserDetail, error) {
 	userdetail := port.UserDetail{}
-	err := c.db.First(&userdetail, id).Error
+	err := c.db.Where("user_id = ?", id).First(&userdetail).Error
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func (c userdetailRepo) Create(userdetail port.UserDetail) (*port.UserDetail, er
 }
 
 func (c userdetailRepo) Update(id int, userdetail port.UserDetail) error {
-	err := c.db.Model(&port.UserDetail{}).Where("userde_id = ?", id).Updates(userdetail).Error
+	err := c.db.Model(&port.UserDetail{}).Where("user_id = ?", id).Updates(userdetail).Error
 	if err != nil {
 		return err
 	}

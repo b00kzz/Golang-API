@@ -28,12 +28,12 @@ func (s userDetailSvc) GetAllUserDetail() ([]domain.UserDetailRespone, error) {
 		resp = append(resp, domain.UserDetailRespone{
 			UserdeId:     c.UserdeId,
 			UserId:       c.UserId,
-			RoleId:       c.RoleId,
 			FirstName:    c.FirstName,
 			LastName:     c.LastName,
 			Phone:        c.Phone,
-			Email:        c.Email,
-			Avatar:       c.Avatar,
+			BankName:     c.BankName,
+			BankId:       c.BankId,
+			PersonCard:   c.PersonCard,
 			RecordStatus: c.RecordStatus,
 			CreatedBy:    c.CreatedBy,
 			CreatedDate:  c.CreatedDate,
@@ -54,12 +54,12 @@ func (s userDetailSvc) GetUserDetail(id int) (*domain.UserDetailRespone, error) 
 	resp := domain.UserDetailRespone{
 		UserdeId:     cust.UserdeId,
 		UserId:       cust.UserId,
-		RoleId:       cust.RoleId,
 		FirstName:    cust.FirstName,
 		LastName:     cust.LastName,
 		Phone:        cust.Phone,
-		Email:        cust.Email,
-		Avatar:       cust.Avatar,
+		BankName:     cust.BankName,
+		BankId:       cust.BankId,
+		PersonCard:   cust.PersonCard,
 		RecordStatus: cust.RecordStatus,
 		CreatedBy:    cust.CreatedBy,
 		CreatedDate:  cust.CreatedDate,
@@ -73,14 +73,13 @@ func (r userDetailSvc) AddUserDetail(req domain.UserDetailRequest) (*domain.User
 	currentTime := time.Now()
 	cust := port.UserDetail{
 		UserId:       req.UserId,
-		RoleId:       req.RoleId,
 		FirstName:    req.FirstName,
 		LastName:     req.LastName,
 		Phone:        req.Phone,
-		Email:        req.Email,
-		Avatar:       req.Avatar,
-		RecordStatus: req.RecordStatus,
-		CreatedBy:    req.CreatedBy,
+		BankName:     req.BankName,
+		BankId:       req.BankId,
+		RecordStatus: "รออนุมัติ",
+		PersonCard:   req.PersonCard,
 		CreatedDate:  currentTime.Format(time.DateTime),
 	}
 	newCust, err := r.repo.Create(cust)
@@ -88,16 +87,14 @@ func (r userDetailSvc) AddUserDetail(req domain.UserDetailRequest) (*domain.User
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot save UserDetail	")
 	}
 	resp := domain.UserDetailRespone{
-		UserId:       newCust.UserId,
-		RoleId:       newCust.RoleId,
-		FirstName:    newCust.FirstName,
-		LastName:     newCust.LastName,
-		Phone:        newCust.Phone,
-		Email:        newCust.Email,
-		Avatar:       newCust.Avatar,
-		RecordStatus: newCust.RecordStatus,
-		CreatedBy:    newCust.CreatedBy,
-		CreatedDate:  currentTime.Format(time.DateTime),
+		UserId:      newCust.UserId,
+		FirstName:   newCust.FirstName,
+		LastName:    newCust.LastName,
+		Phone:       newCust.Phone,
+		BankName:    newCust.BankName,
+		BankId:      newCust.BankId,
+		PersonCard:  newCust.PersonCard,
+		CreatedDate: currentTime.Format(time.DateTime),
 	}
 
 	return &resp, nil
@@ -109,8 +106,9 @@ func (s userDetailSvc) UpdateUserDetail(id int, req domain.UserDetailRequest) er
 		FirstName:    req.FirstName,
 		LastName:     req.LastName,
 		Phone:        req.Phone,
-		Email:        req.Email,
-		Avatar:       req.Avatar,
+		BankName:     req.BankName,
+		BankId:       req.BankId,
+		// PersonCard:   req.PersonCard,
 		RecordStatus: req.RecordStatus,
 		UpdatedBy:    req.UpdatedBy,
 		UpdatedDate:  currentTime.Format(time.DateTime),

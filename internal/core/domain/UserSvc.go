@@ -33,7 +33,6 @@ type RegisterResp struct {
 	RoleId      string `json:"roleid"`
 	Username    string `json:"username" binding:"required"`
 	Password    string `json:"password" binding:"required"`
-	OldPasswd   string `json:"oldpassword" binding:"required"`
 	Nickname    string `json:"nickname" binding:"required"`
 	Email       string `json:"email" binding:"required"`
 	Avatar      string `json:"avatar"`

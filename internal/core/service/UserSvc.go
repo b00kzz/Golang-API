@@ -89,6 +89,7 @@ func (r registerSvc) AddUser(req domain.RegisterReq) (*domain.RegisterResp, erro
 		return nil, errs.New(http.StatusInternalServerError, "80001", errs.SystemErr, "Cannot save user	")
 	}
 	resp := domain.RegisterResp{
+		ID:          newCust.ID,
 		RoleId:      newCust.RoleId,
 		Username:    newCust.Username,
 		Password:    newCust.Password,

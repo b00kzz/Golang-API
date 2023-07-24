@@ -10,12 +10,12 @@ type UserDetailSvc interface {
 
 type UserDetailRequest struct {
 	UserId       uint   `json:"userid"`
-	RoleId       uint   `json:"roleid"`
 	FirstName    string `json:"firstname"`
 	LastName     string `json:"lastname"`
 	Phone        string `json:"phone"`
-	Email        string `json:"email"`
-	Avatar       string `json:"avatar"`
+	BankName     string `json:"bankname"`
+	BankId       string `json:"bankid"`
+	PersonCard   string `json:"personcard"`
 	RecordStatus string `json:"recordstatus"`
 	CreatedBy    string `json:"createdby"`
 	CreatedDate  string `json:"createddate"`
@@ -26,12 +26,12 @@ type UserDetailRequest struct {
 type UserDetailRespone struct {
 	UserdeId     uint   `json:"userdeid"`
 	UserId       uint   `json:"userid"`
-	RoleId       uint   `json:"roleid"`
 	FirstName    string `json:"firstname"`
 	LastName     string `json:"lastname"`
 	Phone        string `json:"phone"`
-	Email        string `json:"email"`
-	Avatar       string `json:"avatar"`
+	BankName     string `json:"bankname"`
+	BankId       string `json:"bankid"`
+	PersonCard   string `json:"personcard"`
 	RecordStatus string `json:"recordstatus"`
 	CreatedBy    string `json:"createdby"`
 	CreatedDate  string `json:"createddate"`
