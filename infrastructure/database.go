@@ -36,12 +36,12 @@ func InitDB() {
 
 	DB = db
 	//การสร้างตารางในฐานข้อมูลด้วยโมเดล
-	db.AutoMigrate(&port.Bill{},)
+	// db.AutoMigrate(&port.Bill{},)
 	// db.AutoMigrate(&port.Customer{})
+	// db.AutoMigrate(&port.Role{})
 	db.AutoMigrate(&port.Payment{})
 	db.AutoMigrate(&port.Review{})
 	db.AutoMigrate(&port.User{})
-	db.AutoMigrate(&port.Role{})
 	db.AutoMigrate(&port.Ticket{})
 	db.AutoMigrate(&port.UserDetail{})
 }

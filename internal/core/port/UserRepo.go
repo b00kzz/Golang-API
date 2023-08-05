@@ -15,7 +15,7 @@ type RegisterRepo interface {
 
 type User struct {
 	ID          uint   `gorm:"column:user_id;type:int(10);primary_key;auto_increment"`
-	UserdeId    int    `gorm:"column:userde_id;type:int(10);notnull"`
+	// UserdeId    int    `gorm:"column:userde_id;type:int(10);notnull"`
 	RoleId      string `gorm:"column:role_id;type:varchar(10);notnull"`
 	Username    string `gorm:"column:username;type:varchar(50);notnull"`
 	Password    string `gorm:"column:password;type:varchar(100);notnull"` //ถ้าเก็บขนาดน้อยไปจะไม่ได้
